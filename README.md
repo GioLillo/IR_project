@@ -1,1 +1,1 @@
-# projectIR
+# IR project
