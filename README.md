@@ -3,7 +3,7 @@
 ### Features:
 
 ### Sites used:
-  -https://www.childcare.co.uk/find/Babysitters
-  -https://babysitting24.ch/it
-  -https://en.babysits.ch/babysitter/
+1. https://www.childcare.co.uk/find/Babysitters
+2. https://babysitting24.ch/it
+3. https://en.babysits.ch/babysitter/
 
