@@ -7,9 +7,12 @@
 3. Giulia Ambiveri
 
 ### Sites:
-1. https://www.childcare.co.uk/find/Babysitters
-2. https://babysitting24.ch/it
-3. https://en.babysits.ch/babysitter/
+1. https://it.yoopies.ch/ricerca-babysitting/results?c=lugano
+2. https://babysitting24.ch/it/providers/search?q%5Bplace%5D=Lugano&search_referrer=HomepageMain
+3. https://en.babysits.ch/babysitter/lugano/
+
+### City: 
+Lugano 
 
 ### Features:
 
