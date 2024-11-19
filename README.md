@@ -8,7 +8,7 @@
 
 ### Sites:
 1. https://it.yoopies.ch/ricerca-babysitting/results?c=lugano
-2. https://babysitting24.ch/it/providers/search?q%5Bplace%5D=Lugano&search_referrer=HomepageMain
+2. https://babysitting24.ch/it/providers/search?q[place]=Lugano
 3. https://en.babysits.ch/babysitter/lugano/
 
 ### City: 
