@@ -1,4 +1,4 @@
-# ir_group13
+# Frontend
 
 ## Project setup
 ```
