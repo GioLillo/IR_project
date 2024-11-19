@@ -14,5 +14,12 @@
 ### City: 
 Lugano 
 
-### Features:
+### Simple features:
+- Results Snippets
+
+### Complex features:
+- Automatic  Recommendation
+- User  Relevance  Feedback
+- Results  clustering
+
 
