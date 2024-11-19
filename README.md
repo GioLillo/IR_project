@@ -22,4 +22,9 @@ Lugano
 - User  Relevance  Feedback
 - Results  clustering
 
+### Color favicon (useful for chosing palette):
+rgb(103, 196, 198) --> celeste
+
+rgb(129, 98, 194) --> viola
+
 
