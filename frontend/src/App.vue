@@ -1,7 +1,7 @@
 <template>
   <div class=" min-h-screen p-8">
     <header class="text-center mb-8">
-      <h1 class="text-6xl font-bold text-indigo-600">Blinky</h1>
+      <h1 class="text-6xl font-bold text-violet-icon">NannieSearch</h1>
     </header>
     <main>
       <SearchBar @search="performSearch" />
