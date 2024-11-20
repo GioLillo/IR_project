@@ -2,8 +2,27 @@ import requests
 from bs4 import BeautifulSoup
 import json
 
-# Save scraped data to JSON file
-# Function to scrape content from a webpage
+def findrole(s):
+    if "Babysitter" in s:
+        return "Babysitter"
+    elif "Nanny" in  s:
+        return "Nanny"
+    elif "Childminder" in  s:
+        return "Childminder"
+
+def findAll(url):
+    response = requests.get(url)
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.text, 'html.parser')
+        d=soup.find_all('div',class_="w-100 d-flex justify-content-evenly text-center")
+        age=d[0].text.strip().split("Age")[1][1:3]
+        salary=d[0].text.strip().split("Hourly rate")[1].split(" ")[28][1:]
+        ret=""
+        ret+=age+"!"+salary
+        return ret
+    else:
+        return ""
+        
 def website1(url):
     results = []
     for i in range(1,50):
@@ -16,8 +35,12 @@ def website1(url):
             descriptions = soup.find_all('div', class_='description')
             descriptions=descriptions[4:]
             hrefs = soup.find_all('a', class_="stretched-link")
+
             counter=0
             for header, description, href in zip(headers, descriptions, hrefs):
+                all=findAll("https://en.babysits.ch"+href.get('href')),
+                age=all[0].split('!')[0]
+                salary=all[0].split('!')[1]
                 counter+=1
                 if counter==16:
                     break
@@ -26,7 +49,10 @@ def website1(url):
                 result = {
                     "url" : url,
                     "href" : "https://en.babysits.ch"+href.get('href'),
-                    "header": header.text.strip(),
+                    "name": header.text.strip().split('\n')[0],
+                    "age" : age,
+                    "salary" :salary,
+                    "role" : findrole(header.text.strip()),
                     "description": description.text.strip()
                 }
                 results.append(result)
@@ -35,74 +61,16 @@ def website1(url):
             break
     return results
 
-
 def website2(url):
-    results = []
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36',
-        'Accept-Language': 'en-US,en;q=0.9,it;q=0.8',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-        'Connection': 'keep-alive',
-        'Upgrade-Insecure-Requests': '1',
-    }
-    
-    response = requests.get(url, headers=headers)
-    
-    if response.status_code == 200:
-        soup = BeautifulSoup(response.text, 'html.parser')
-        
-        # Log HTML completo per capire la struttura
-        print(soup.prettify())
-        
-        # Trova i card
-        cards = soup.find_all('li', class_='card')
-        
-        for i, card in enumerate(cards, start=1):
-            try:
-                
-                # Estrai header e descrizione
-                header_section = card.find('section', class_='heading')
-                description_section = card.find('section', class_='content')
-                
-                header = (
-                    header_section.find('h5').text.strip()
-                    if header_section and header_section.find('h5')
-                    else "N/A"
-                )
-                description = (
-                    description_section.find('p').text.strip()
-                    if description_section and description_section.find('p')
-                    else "N/A"
-                )
-                             
-                result = {
-                    "url": url,
-                    "header": header,
-                    "description": description,
-                }
-                results.append(result)
-            
-            except AttributeError as e:
-                print(f"Errore nel processare un card: {e}")
-                continue
-    
-    else:
-        print(f"Impossibile scaricare la pagina: codice HTTP {response.status_code}")
-    
-    return results
-
-
-
-def website3(url):
     results = []
     h = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36',
             'Accept-Language': 'en-US,en;q=0.9,it;q=0.8',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,/;q=0.8',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
             'Connection': 'keep-alive',
             'Upgrade-Insecure-Requests': '1',
         }
-    for i in range(1,3):
+    for i in range(1,50):
         response = requests.get(url+"&page="+str(i),headers=h)
         print(url+"&page="+str(i))
         if response.status_code == 200:
@@ -129,17 +97,14 @@ def website3(url):
 
 def scrape_webpage(url):
     if url=="https://en.babysits.ch/babysitter/lugano/":
-         return website1(url)
-    if url=="https://it.yoopies.ch/ricerca-babysitting/results?c=lugano":
-        return website2(url)
+        return website1(url)
     if url=="https://babysitting24.ch/it/providers/search?q[place]=Lugano":
-       return website3(url)
+        return website2(url)
 
     
 
 urls = [
     "https://en.babysits.ch/babysitter/lugano/",
-    #"https://it.yoopies.ch/ricerca-babysitting/results?c=lugano",
     "https://babysitting24.ch/it/providers/search?q[place]=Lugano"
 ]
 
