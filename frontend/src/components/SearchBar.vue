@@ -1,17 +1,20 @@
 <template>
-  <div class="flex justify-center mb-6">
-    <input
-        type="text"
-        v-model="searchQuery"
-        placeholder="Search for nannies or babysitters..."
-        class="w-72 p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-    />
-    <button
-        @click="onSearch"
-        class="ml-4 px-6 py-3 bg-indigo-600 text-white rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-    >
-      Search
-    </button>
+  <div class="flex justify-center items-center">
+    <!-- Search Bar Container -->
+    <div class="flex w-full max-w-2xl border rounded-full shadow-md bg-white overflow-hidden">
+      <!-- Search Icon -->
+      <div class="flex items-center justify-center px-4">
+        <i class="pi pi-search text-lg"></i>
+      </div>
+      <!-- Input Field -->
+      <input
+          type="text"
+          v-model="searchQuery"
+          placeholder="Search for nannies or babysitters..."
+          class="flex-grow p-3 text-gray-700 focus:outline-none"
+          @keydown.enter="onSearch"
+      />
+    </div>
   </div>
 </template>
 
@@ -31,7 +34,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
 </style>

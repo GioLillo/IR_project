@@ -1,33 +1,26 @@
 <template>
-  <div id="app" class="bg-gray-100 min-h-screen p-8">
+  <div class=" min-h-screen p-8">
     <header class="text-center mb-8">
-      <h1 class="text-4xl font-bold text-indigo-600">Nanny Finder</h1>
-      <SearchBar @search="performSearch" />
+      <h1 class="text-6xl font-bold text-indigo-600">Blinky</h1>
     </header>
     <main>
-<!--      <SearchResults :results="results" :query="query" />-->
+      <SearchBar @search="performSearch" />
     </main>
   </div>
 </template>
 
 <script>
 import SearchBar from './components/SearchBar.vue'
+// import SearchResults from "@/components/SearchResults.vue";
 
 export default {
   name: 'App',
   components: {
-    SearchBar
+    SearchBar,
+    // SearchResults
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
