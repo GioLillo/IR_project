@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 import json
-import re
 
 def findrole(s):
     if "Babysitter" in s:
