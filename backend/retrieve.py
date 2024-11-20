@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+import re
 
 def findrole(s):
     if "Babysitter" in s:
@@ -22,6 +23,22 @@ def findAll(url):
         return ret
     else:
         return ""
+    
+def extract_salary_and_age(header_text):
+    salary_start = header_text.find("CHF")
+    salary_end = header_text.find("/ ora", salary_start)
+    salary = header_text[salary_start:salary_end + 6] if salary_start != -1 and salary_end != -1 else None
+
+    first_age_start = header_text.find("anni")  
+    if first_age_start != -1:
+        second_age_start = header_text.find("anni", first_age_start + 4)
+        if second_age_start != -1:
+            age = header_text[max(0, second_age_start - 5):second_age_start].strip()
+        else:
+            age = None
+    else:
+        age = None
+    return salary, age
         
 def website1(url):
     results = []
@@ -83,10 +100,16 @@ def website2(url):
                 counter+=1
                 if counter==11:
                     break
+
+                header_text = header.text.strip()
+                salary, age = extract_salary_and_age(header_text)
+
                 result = {
                     "url" : url,
                     "href" : "https://babysitting24.ch/it/register/new?registration_referrer=SeeFullProfile&role=consumer&visited_profile="+href.get('id')[5:],
-                    "header": header.text.strip(),
+                    "name": header.text.strip().split('\n')[0],
+                    "age" : age,
+                    "salary" :salary,
                     "description": description.text.strip()
                 }
                 results.append(result)
