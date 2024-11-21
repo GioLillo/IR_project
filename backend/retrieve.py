@@ -2,14 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 import json
 
-def findrole(s):
-    if "Babysitter" in s:
-        return "Babysitter"
-    elif "Nanny" in  s:
-        return "Nanny"
-    elif "Childminder" in  s:
-        return "Childminder"
-
 def findAll(url):
     response = requests.get(url)
     if response.status_code == 200:
@@ -54,7 +46,6 @@ def website1(url):
                     "name": header.text.strip().split('\n')[0],
                     "age" : age,
                     "salary" :salary,
-                    "role" : findrole(header.text.strip()),
                     "description": description.text.strip()
                 }
                 results.append(result)
@@ -89,7 +80,7 @@ def website2(url):
             'Connection': 'keep-alive',
             'Upgrade-Insecure-Requests': '1',
         }
-    for i in range(1,50):
+    for i in range(1,3):
         response = requests.get(url+"&page="+str(i),headers=h)
         print(url+"&page="+str(i))
         if response.status_code == 200:

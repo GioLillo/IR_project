@@ -1,6 +1,18 @@
 const express = require('express');
 const fs = require('fs');
 const app = express();
+const { exec } = require('child_process');
+exec('python3 ./retrieve.py', (error, stdout, stderr) => {
+    if (error) {
+      console.error(`exec error: ${error}`);
+      return;
+    }
+    if (stderr) {
+      console.error(`stderr: ${stderr}`);
+      return;
+    }
+    console.log(`Data retrieved`);
+  });
 
 // Endpoint to serve the data
 app.get('/api/results', (req, res) => {
