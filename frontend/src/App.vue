@@ -1,12 +1,14 @@
 <template>
-  <div class=" min-h-screen p-8 flex flex-col justify-center -mt-28">
-    <header class="text-center mb-8">
-      <h1 class="text-6xl font-bold text-violet-icon">Nannie Search</h1>
-    </header>
-    <main>
-      <SearchBar @search="performSearch" />
-      <!--      <SearchResults :query="searchQuery" />-->
-    </main>
+  <div class="bg-violet-50 min-h-screen p-8 flex flex-col justify-center">
+    <div class="mb-72 mt-9">
+      <header class="text-center mb-8">
+        <h1 class="text-6xl font-bold text-violet-icon">Nanny Search</h1>
+      </header>
+      <main>
+        <SearchBar @search="performSearch" />
+        <!--      <SearchResults :query="searchQuery" />-->
+      </main>
+    </div>
   </div>
 </template>
 
@@ -23,5 +25,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
 </style>

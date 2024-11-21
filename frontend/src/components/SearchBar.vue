@@ -4,7 +4,7 @@
     <div class="flex w-full max-w-2xl border rounded-full shadow-md bg-white overflow-hidden focus-within:ring-2 focus-within:ring-violet-500">
       <!-- Search Icon -->
       <div class="flex items-center justify-center px-4">
-        <i class="pi pi-search text-lg text-violet-icon "></i>
+        <i class="pi pi-search text-lg text-violet-500 "></i>
       </div>
       <!-- Input Field -->
       <input
