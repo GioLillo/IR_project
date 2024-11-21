@@ -23,21 +23,7 @@ def findAll(url):
     else:
         return ""
     
-def extract_salary_and_age(header_text):
-    salary_start = header_text.find("CHF")
-    salary_end = header_text.find("/ ora", salary_start)
-    salary = header_text[salary_start:salary_end + 6] if salary_start != -1 and salary_end != -1 else None
 
-    first_age_start = header_text.find("anni")  
-    if first_age_start != -1:
-        second_age_start = header_text.find("anni", first_age_start + 4)
-        if second_age_start != -1:
-            age = header_text[max(0, second_age_start - 5):second_age_start].strip()
-        else:
-            age = None
-    else:
-        age = None
-    return salary, age
         
 def website1(url):
     results = []
@@ -76,6 +62,23 @@ def website1(url):
             print(f"Failed to fetch {url}")
             break
     return results
+
+
+def extract_salary_and_age(header_text):
+    salary_start = header_text.find("CHF")
+    salary_end = header_text.find("/ ora", salary_start)
+    salary = header_text[salary_start:salary_end + 6] if salary_start != -1 and salary_end != -1 else None
+
+    first_age_start = header_text.find("anni")  
+    if first_age_start != -1:
+        second_age_start = header_text.find("anni", first_age_start + 4)
+        if second_age_start != -1:
+            age = header_text[max(0, second_age_start - 5):second_age_start].strip()
+        else:
+            age = None
+    else:
+        age = None
+    return salary, age
 
 def website2(url):
     results = []
