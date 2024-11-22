@@ -9,17 +9,17 @@
         </div>
         <!-- Input Field -->
         <input
-            ref="searchInput"
-            type="text"
-            v-model="searchQuery"
-            class="flex-grow p-3 text-gray-700 focus:outline-none"
-            @keydown.enter="performSearch"
+          ref="searchInput"
+          type="text"
+          v-model="localSearchQuery"
+          class="flex-grow p-3 text-gray-700 focus:outline-none"
+          @keydown.enter="performSearch"
         />
-        <!-- delete icon -->
+        <!-- Delete Icon -->
         <div
-            class="flex items-center justify-center px-8 cursor-pointer"
-            @click="clearSearch"
-            v-if="searchQuery !== ''"
+          class="flex items-center justify-center px-8 cursor-pointer"
+          @click="clearSearch"
+          v-if="localSearchQuery !== ''"
         >
           <i class="pi pi-times text-lg font-semibold text-violet-500"></i>
         </div>
@@ -34,10 +34,19 @@
   <main class="flex space-x-4 pl-20">
     <!-- Search Results -->
     <div class="flex-1">
-      <h2 class="text-lg font-semibold text-gray-800 mb-3">Search Results for "{{ displayQuery }}"</h2>
+      <h2 class="text-lg font-semibold text-gray-800 mb-3">
+        Search Results for "{{ displayQuery }}"
+      </h2>
       <ul class="space-y-4">
-        <li v-for="result in results" :key="result.id" class="p-4 border rounded-md shadow-sm bg-white">
-          <h3 class="font-bold text-violet-600">{{ result.title }}</h3>
+        <li v-for="result in results" :key="result.href" class="p-4 border rounded-md shadow-sm bg-white">
+          <h3 class="font-bold text-violet-600">
+            <a :href="result.href" target="_blank">Name : {{ result.name }}</a>
+          </h3>
+          <p class="text-gray-600">
+            Age: {{ result.age }}, 
+            Salary: {{ result.salary }},
+            Description: {{ result.description }}
+          </p>
           <p class="text-gray-600">{{ result.description }}</p>
         </li>
       </ul>
@@ -50,58 +59,98 @@
     <aside class="w-1/3 pr-20">
       <h2 class="text-lg font-semibold text-gray-800 mb-3">Suggested</h2>
       <ul class="space-y-4">
-        <li v-for="suggestion in suggestions" :key="suggestion.id" class="p-4 border rounded-md shadow-sm bg-white">
-          <h3 class="font-bold text-violet-600">{{ suggestion.title }}</h3>
+        <li
+          v-for="suggestion in suggestions"
+          :key="suggestion.href"
+          class="p-4 border rounded-md shadow-sm bg-white"
+        >
+          <h3 class="font-bold text-violet-600">
+            <a :href="suggestion.href" target="_blank">{{ suggestion.name }}</a>
+          </h3>
+          <p class="text-gray-600">
+            Age: {{ suggestion.age }}, Salary: {{ suggestion.salary }}
+          </p>
           <p class="text-gray-600">{{ suggestion.description }}</p>
         </li>
       </ul>
     </aside>
   </main>
-
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "SearchResults",
+  props: {
+    searchQuery: {
+      type: String,
+      default: "", 
+    },
+  },
   data() {
     return {
-      searchQuery: this.$route.query.query || "",
-      displayQuery: this.$route.query.query || "",
-      results: [], // Risultati
-      suggestions: [], // Suggerimenti
+      localSearchQuery: this.searchQuery, 
+      displayQuery: this.searchQuery, 
+      results: [], 
+      suggestions: [], 
     };
   },
+  watch: {
+    localSearchQuery(newValue) {
+      this.$emit("update:searchQuery", newValue);
+    },
+    searchQuery(newValue) {
+      this.localSearchQuery = newValue;
+    },
+  },
   methods: {
+    async fetchResults() {
+      try {
+        const response = await axios.get('http://localhost:3000/api/data');
+        const data = response.data;
+
+        this.results = data.map((item) => ({
+          href: item.href, 
+          name: item.name, 
+          age: item.age, 
+          salary: item.salary, 
+          description: item.description, 
+        }));
+
+        console.log(this.results);
+
+        this.suggestions = data.slice(0, 3).map((item) => ({
+          href: item.href,
+          name: item.name,
+          age: item.age,
+          salary: item.salary,
+          description: item.description,
+        }));
+      } catch (error) {
+        console.error("Errore nel recupero dei dati:", error);
+      }
+    },
     performSearch() {
-      this.$router.push({ query: { query: this.searchQuery } });
+      this.displayQuery = this.localSearchQuery;
       this.fetchResults();
-      this.$refs.searchInput.blur();
+      this.$refs.searchInput.blur(); 
     },
     clearSearch() {
-      this.searchQuery = "";
+      this.localSearchQuery = "";
+      this.results = [];
+      this.suggestions = [];
       this.$nextTick(() => {
-        this.$refs.searchInput.focus();
+        this.$refs.searchInput.focus(); 
       });
-    },
-    fetchResults() {
-      // Legge la query dalla query string
-      this.displayQuery = this.searchQuery;
-      // Simula il caricamento dei dati
-      this.results = [
-        { id: 1, title: `Result for "${this.searchQuery}"`, description: "Description of Result 1" },
-        { id: 2, title: `Another Result for "${this.searchQuery}"`, description: "Description of Result 2" },
-      ];
-      this.suggestions = [
-        { id: 1, title: "Suggested 1", description: "Description of Suggested 1" },
-        { id: 2, title: "Suggested 2", description: "Description of Suggested 2" },
-      ];
     },
   },
   mounted() {
-    this.fetchResults();
-  },
-  watch: {
-    "$route.query.query": "fetchResults",
+    this.fetchResults(); 
   },
 };
 </script>
+
+<style scoped>
+
+</style>
