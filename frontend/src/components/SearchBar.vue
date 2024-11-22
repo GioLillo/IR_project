@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-72 mt-9">
+  <div class="mb-72 mt-9 p-8">
     <header class="text-center mb-8">
           <h1 class="text-6xl font-bold text-violet-icon">Nanny Search</h1>
     </header>
@@ -16,7 +16,7 @@
             v-model="searchQuery"
             placeholder="Search for nannies or babysitters..."
             class="flex-grow p-3 text-gray-700 focus:outline-none"
-            @keydown.enter="onSearch"
+            @keydown.enter="performSearch"
         />
       </div>
     </div>
@@ -32,7 +32,7 @@ export default {
     };
   },
   methods: {
-    onSearch() {
+    performSearch() {
       this.$router.push({ path: '/results', query: { query: this.searchQuery } });
     },
   },
