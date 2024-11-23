@@ -120,8 +120,6 @@ export default {
           description: item.description[0], 
         }));
 
-        console.log(response.data);
-
         this.suggestions = data.slice(0, 3).map((item) => ({
           href: item.href[0],
           name: item.name[0],

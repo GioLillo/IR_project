@@ -1,6 +1,22 @@
 [
     {
         "url": "https://en.babysits.ch/babysitter/lugano/",
+        "href": "https://en.babysits.ch/babysitter/lugano/1949037/",
+        "name": "Silvia",
+        "age": "56",
+        "salary": "CHF\u00a025.00/hr",
+        "description": "Salve, \r\nsono una tata/baby sitter, ho 55 anni, ho vissuto a Lugano fino al 2023, ora vivo in Italia e possiedo Permesso di Lavoro G.\r\nSono italiana, automunita, non fumatrice, amo i.."
+    },
+    {
+        "url": "https://en.babysits.ch/babysitter/lugano/",
+        "href": "https://en.babysits.ch/babysitter/lugano/5173920/",
+        "name": "Marica",
+        "age": "54",
+        "salary": "CHF\u00a020.00/hr",
+        "description": "Buongiorno, sono una mamma e babysitter, mia figlia ha 15 anni e lei \u00e8 stata ed \u00e8 l'eperienza piu' importante della mia vita!\nSono madrelingua Italiana, vivo in Italia, vicino al confine,.."
+    },
+    {
+        "url": "https://en.babysits.ch/babysitter/lugano/",
         "href": "https://en.babysits.ch/babysitter/lugano/6070895/",
         "name": "Patrizia Maria",
         "age": "26",
@@ -46,14 +62,6 @@
         "age": "23",
         "salary": "CHF\u00a020.00/hr",
         "description": "Mi chiamo Elena e sono una Studentessa Magistrale presso l'Universit\u00e0  Svizzera di Lugano, da 1.10.24 risieder\u00f2 in svizzera regolarmente e mi rendo disponibile come babysitter per.."
-    },
-    {
-        "url": "https://en.babysits.ch/babysitter/lugano/",
-        "href": "https://en.babysits.ch/babysitter/lugano/5173920/",
-        "name": "Marica",
-        "age": "54",
-        "salary": "CHF\u00a020.00/hr",
-        "description": "Buongiorno, sono una mamma e babysitter, mia figlia ha 15 anni e lei \u00e8 stata ed \u00e8 l'eperienza piu' importante della mia vita!\nSono madrelingua Italiana, vivo in Italia, vicino al confine,.."
     },
     {
         "url": "https://en.babysits.ch/babysitter/lugano/",
@@ -110,14 +118,6 @@
         "age": "21",
         "salary": "CHF\u00a015.00/hr",
         "description": "Sono Anal\u00f9 ed ho 21 anni.\nNel tempo libero amo leggere e colorare.\nSono una persona molto solare ed estroversa che ama stare con le persone a se molto care.\nNegli ultimi 3 anni ho.."
-    },
-    {
-        "url": "https://en.babysits.ch/babysitter/lugano/",
-        "href": "https://en.babysits.ch/babysitter/lugano/1949037/",
-        "name": "Silvia",
-        "age": "56",
-        "salary": "CHF\u00a025.00/hr",
-        "description": "Salve, \r\nsono una tata/baby sitter, ho 55 anni, ho vissuto a Lugano fino al 2023, ora vivo in Italia e possiedo Permesso di Lavoro G.\r\nSono italiana, automunita, non fumatrice, amo i.."
     },
     {
         "url": "https://en.babysits.ch/babysitter/lugano/",
@@ -801,6 +801,14 @@
     },
     {
         "url": "https://babysitting24.ch/it/providers/search?q[place]=Lugano",
+        "href": "https://babysitting24.ch/it/register/new?registration_referrer=SeeFullProfile&role=consumer&visited_profile=3678780",
+        "name": "Simona",
+        "age": "53",
+        "salary": "CHF 25\n/ ora\n",
+        "description": "sono italiana e amo i bambini. Mi piace vederli crescere e accudirli. Sono una persona attenta paziente e amorevole. Mi piace accompagnarli nella fase della loro crescita con diverse attivit\u00e0 e gioch\u2026"
+    },
+    {
+        "url": "https://babysitting24.ch/it/providers/search?q[place]=Lugano",
         "href": "https://babysitting24.ch/it/register/new?registration_referrer=SeeFullProfile&role=consumer&visited_profile=2117375",
         "name": "Matilde",
         "age": "29",
@@ -817,27 +825,19 @@
     },
     {
         "url": "https://babysitting24.ch/it/providers/search?q[place]=Lugano",
-        "href": "https://babysitting24.ch/it/register/new?registration_referrer=SeeFullProfile&role=consumer&visited_profile=1578752",
-        "name": "Paola",
-        "age": "51",
-        "salary": "CHF 20\n/ ora\n",
-        "description": "Mi chiamo Paola ho due figlie, 19 e 17 anni\nAbito a Lugano. Sono automunita. Cerco un impiego da baby sitter, mi posso occupare della cura dei bimbi, accompagnamento, aiuto compiti, riordino.\nLavoro i\u2026"
-    },
-    {
-        "url": "https://babysitting24.ch/it/providers/search?q[place]=Lugano",
-        "href": "https://babysitting24.ch/it/register/new?registration_referrer=SeeFullProfile&role=consumer&visited_profile=3678780",
-        "name": "Simona",
-        "age": "53",
-        "salary": "CHF 25\n/ ora\n",
-        "description": "sono italiana e amo i bambini. Mi piace vederli crescere e accudirli. Sono una persona attenta paziente e amorevole. Mi piace accompagnarli nella fase della loro crescita con diverse attivit\u00e0 e gioch\u2026"
-    },
-    {
-        "url": "https://babysitting24.ch/it/providers/search?q[place]=Lugano",
         "href": "https://babysitting24.ch/it/register/new?registration_referrer=SeeFullProfile&role=consumer&visited_profile=3608763",
         "name": "Yvonne",
         "age": "54",
         "salary": "CHF 27\n/ ora\n",
         "description": "Cari genitori sono Tata Yvonne, ho una esperienza con i bambini dai 2 all\u2019et\u00e0 adolescenziale da pi\u00f9 di 10 anni. \nSono bilingue parlo perfettamente sia italiano che inglese i quali sono la mia lingua m\u2026"
+    },
+    {
+        "url": "https://babysitting24.ch/it/providers/search?q[place]=Lugano",
+        "href": "https://babysitting24.ch/it/register/new?registration_referrer=SeeFullProfile&role=consumer&visited_profile=1578752",
+        "name": "Paola",
+        "age": "51",
+        "salary": "CHF 20\n/ ora\n",
+        "description": "Mi chiamo Paola ho due figlie, 19 e 17 anni\nAbito a Lugano. Sono automunita. Cerco un impiego da baby sitter, mi posso occupare della cura dei bimbi, accompagnamento, aiuto compiti, riordino.\nLavoro i\u2026"
     },
     {
         "url": "https://babysitting24.ch/it/providers/search?q[place]=Lugano",
@@ -857,19 +857,19 @@
     },
     {
         "url": "https://babysitting24.ch/it/providers/search?q[place]=Lugano",
-        "href": "https://babysitting24.ch/it/register/new?registration_referrer=SeeFullProfile&role=consumer&visited_profile=2786122",
-        "name": "Roberta",
-        "age": "47",
-        "salary": "CHF 20\n/ ora\n",
-        "description": "Sono Roberta gi\u00e0 mamma di due ragazzi grandi e indipendenti sono una persona solare che ha lavorato per 9 anni in un asilo nido in Italia ( il nespolo blu Sarego Vicenza) e anche dopo li trasferimento\u2026"
-    },
-    {
-        "url": "https://babysitting24.ch/it/providers/search?q[place]=Lugano",
         "href": "https://babysitting24.ch/it/register/new?registration_referrer=SeeFullProfile&role=consumer&visited_profile=1913769",
         "name": "Lara",
         "age": "54",
         "salary": null,
         "description": "Buongiorno,sono Lara, ventennale esperienza come educatrice, tata, baby sitter, coordinatrice e tutor presso asili nido, scuole dell'infanzia, scuole elementari e famiglie private con bimbi da 0 a 10 \u2026"
+    },
+    {
+        "url": "https://babysitting24.ch/it/providers/search?q[place]=Lugano",
+        "href": "https://babysitting24.ch/it/register/new?registration_referrer=SeeFullProfile&role=consumer&visited_profile=2786122",
+        "name": "Roberta",
+        "age": "47",
+        "salary": "CHF 20\n/ ora\n",
+        "description": "Sono Roberta gi\u00e0 mamma di due ragazzi grandi e indipendenti sono una persona solare che ha lavorato per 9 anni in un asilo nido in Italia ( il nespolo blu Sarego Vicenza) e anche dopo li trasferimento\u2026"
     },
     {
         "url": "https://babysitting24.ch/it/providers/search?q[place]=Lugano",
