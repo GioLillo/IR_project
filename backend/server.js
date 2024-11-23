@@ -21,8 +21,7 @@ function addDocumentToSolr(document){
 async function queryToSolr(query){
   const solrUrl = 'http://localhost:8983/solr/babysitter_core/select';
   const params = new URLSearchParams({
-      q: query,        // Query per Solr
-      rows: 10,        // Numero di risultati da restituire
+      q: query,        // Query per Solr        // Numero di risultati da restituire
       wt: 'json'       // Formato JSON per la risposta
   });
 
@@ -42,7 +41,7 @@ app.get("/api/results", async (req, res) => {
   // addDocumentToSolr(babysitters);
 
   // Costruisci la query per Solr
-  const query = "name:"+req.query.query;
+  const query = "name:"+req.query.query+"? or description:*"+req.query.query+"*";
   const solrResults = await queryToSolr(query);
 
   // Se la ricerca su Solr ha successo, restituisci i risultati

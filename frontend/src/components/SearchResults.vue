@@ -67,9 +67,9 @@
           <h3 class="font-bold text-violet-600">
             <a :href="suggestion.href" target="_blank">{{ suggestion.name }}</a>
           </h3>
-          <p class="text-gray-600">
+          <!-- <p class="text-gray-600">
             Age: {{ suggestion.age }}, Salary: {{ suggestion.salary }}
-          </p>
+          </p> -->
           <p class="text-gray-600">{{ suggestion.description }}</p>
         </li>
       </ul>
@@ -113,21 +113,21 @@ export default {
         const data = response.data;
 
         this.results = data.map((item) => ({
-          href: item.href, 
-          name: item.name, 
-          age: item.age, 
-          salary: item.salary, 
-          description: item.description, 
+          href: item.href[0], 
+          name: item.name[0], 
+          age: item.age[0], 
+          salary: item.salary[0], 
+          description: item.description[0], 
         }));
 
         console.log(response.data);
 
         this.suggestions = data.slice(0, 3).map((item) => ({
-          href: item.href,
-          name: item.name,
-          age: item.age,
-          salary: item.salary,
-          description: item.description,
+          href: item.href[0],
+          name: item.name[0],
+          // age: item.age[0],
+          // salary: item.salary[0],
+          description: item.description[0],
         }));
       } catch (error) {
         console.error("Errore nel recupero dei dati:", error);
