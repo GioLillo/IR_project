@@ -128,6 +128,6 @@ scraped_data = []
 for url in urls:
     data = scrape_webpage(url)
     if data is not None:
-        scraped_data.append(data)
+        scraped_data.extend(data)
 with open('data_retrieved.json', 'w') as file:
     json.dump(scraped_data, file, indent=4)

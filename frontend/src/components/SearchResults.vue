@@ -107,7 +107,9 @@ export default {
   methods: {
     async fetchResults() {
       try {
-        const response = await axios.get('http://localhost:3000/api/data');
+        const url = `http://localhost:3000/api/results?query=${this.localSearchQuery}`;
+
+        const response = await axios.get(url);
         const data = response.data;
 
         this.results = data.map((item) => ({
@@ -118,7 +120,7 @@ export default {
           description: item.description, 
         }));
 
-        console.log(this.results);
+        console.log(response.data);
 
         this.suggestions = data.slice(0, 3).map((item) => ({
           href: item.href,
