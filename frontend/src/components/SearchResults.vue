@@ -24,8 +24,25 @@
           <i class="pi pi-times text-lg font-semibold text-violet-500"></i>
         </div>
       </div>
+
+    <div class="flex items-center space-x-4 ml-4">
+        <!-- Age Slider -->
+        <div class="flex items-center">
+          <label class="mr-2 text-gray-700">Age:</label>
+          <Slider v-model="ageRange" range class="w-40" :min="0" :max="100" @change="performSearch" />
+          <span class="ml-2 text-gray-600">{{ ageRange[0] }} - {{ ageRange[1] }}</span>
+        </div>
+        <!-- Salary Slider -->
+        <div class="flex items-center">
+          <label class="mr-2 text-gray-700">Salary:</label>
+          <Slider v-model="salaryRange" range class="w-40" :min="0" :max="200000" @change="performSearch" />
+          <span class="ml-2 text-gray-600">{{ salaryRange[0] }} - {{ salaryRange[1] }}</span>
+        </div>
+      </div>
     </div>
+
   </header>
+
 
   <!-- Divider -->
   <div class="w-full border-b border-gray-300 mb-4"></div>
@@ -79,9 +96,14 @@
 
 <script>
 import axios from "axios";
+import Slider from 'primevue/slider';
+
 
 export default {
   name: "SearchResults",
+  components: {
+    Slider, 
+  },
   props: {
     searchQuery: {
       type: String,
@@ -94,7 +116,20 @@ export default {
       displayQuery: this.searchQuery, 
       results: [], 
       suggestions: [], 
+      ageRange: [10, 100], 
+      salaryRange: [0, 40], 
     };
+  },
+  computed: {
+    filteredResults() {
+      return this.results.filter(
+        (item) =>
+          item.age >= this.ageRange[0] &&
+          item.age <= this.ageRange[1] &&
+          item.salary >= this.salaryRange[0] &&
+          item.salary <= this.salaryRange[1]
+      );
+    },
   },
   watch: {
     localSearchQuery(newValue) {
@@ -156,3 +191,4 @@ export default {
 <style scoped>
 
 </style>
+
