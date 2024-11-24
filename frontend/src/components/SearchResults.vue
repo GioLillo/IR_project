@@ -161,20 +161,20 @@ export default {
         const response = await axios.get(url);
         const data = response.data;
 
-        this.results = data.map((item) => ({
+        this.results = data[0].map((item) => ({
           href: item.href[0],
           name: item.name[0],
           age: item.age[0],
           salary: item.salary[0],
           description: item.description[0],
         }));
-
-        this.suggestions = data.slice(0, 3).map((item) => ({
-          href: item.href[0],
+        console.log(data);
+        this.suggestions = data[1].map((item) => ({
+          href: item.href,
           name: item.name[0],
           // age: item.age[0],
           // salary: item.salary[0],
-          description: item.description[0],
+          description: item.description,
         }));
         this.$router.push({ path: '/results', query: { query: this.localSearchQuery } });
       } catch (error) {
@@ -195,10 +195,10 @@ export default {
         this.$refs.searchInput.focus();
       });
     },
-    // changePage(page) {
-    //   // this.currentPage = event.page + 1;
-    //   this.fetchResults();
-    // },
+    changePage(event) {
+      this.currentPage = event.page+1; 
+      this.fetchResults();
+    }
   },
   mounted() {
     this.fetchResults();
