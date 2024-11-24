@@ -86,7 +86,7 @@
           <!-- <p class="text-gray-600">
             Age: {{ suggestion.age }}, Salary: {{ suggestion.salary }}
           </p> -->
-          <p class="text-gray-600">{{ suggestion.description }}</p>
+          <p class="text-gray-600" v-html="suggestion.description"></p>
         </li>
       </ul>
     </aside>

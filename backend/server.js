@@ -54,10 +54,6 @@ async function queryToSolr(query) {
         const params = new URLSearchParams({
             q: query,
             wt: 'json',
-            hl: 'true',
-            'hl.fl': 'name,description',
-            'hl.simple.pre': '<em>',
-            'hl.simple.post': '</em>',
         });
         const response = await axios.get(solrUrl, { params });
         return response.data;
@@ -71,10 +67,10 @@ async function main() {
     try {
         await esegui('solr-9.7.0/bin/solr stop');
         await esegui('solr-9.7.0/bin/solr start');
-        await esegui('solr-9.7.0/bin/solr create -c babysitter_core');
+        //await esegui('solr-9.7.0/bin/solr create -c babysitter_core');
         //await esegui('python3 ./retrieve.py');
-        await deleteDocumentsByQuery();
-        await addDocumentToSolr(babysitters);
+        //await deleteDocumentsByQuery();
+        //await addDocumentToSolr(babysitters);
         const PORT = 3000;
         app.listen(PORT, () => {
             console.log(`Server in esecuzione su http://localhost:${PORT}`);
@@ -95,7 +91,14 @@ app.get("/api/results", async (req, res) => {
         query = "(name:" + req.query.query + "* or description:*" + req.query.query + "*) and (age or salary)";
     }
     const solrResults = await queryToSolr(query);
-    console.log(solrResults);
+    solrResults.response.docs.forEach(e => {
+        // Utilizza una regex con l'opzione 'i' per non fare distinzione tra maiuscole e minuscole
+        var toAssign = e.description[0].replace(new RegExp(req.query.query, 'gi'), "<b>$&</b>");
+        e.description[0] = toAssign;  
+    });
+    solrResults.response.docs.forEach(e => {
+        console.log(e.description[0]);
+    });
     if (solrResults) {
         res.json(solrResults.response.docs);
     } else {
