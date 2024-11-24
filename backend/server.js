@@ -54,6 +54,7 @@ async function queryToSolr(query) {
         const params = new URLSearchParams({
             q: query,
             wt: 'json',
+            rows: 100
         });
         const response = await axios.get(solrUrl, { params });
         return response.data;
