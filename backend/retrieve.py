@@ -80,7 +80,7 @@ def website2(url):
             'Connection': 'keep-alive',
             'Upgrade-Insecure-Requests': '1',
         }
-    for i in range(1,3):
+    for i in range(1,20):
         response = requests.get(url+"&page="+str(i),headers=h)
         print(url+"&page="+str(i))
         if response.status_code == 200:

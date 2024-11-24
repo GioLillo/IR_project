@@ -2,32 +2,31 @@ const express = require('express');
 const cors = require("cors");
 const app = express();
 const { exec } = require('child_process');
+const { promisify } = require('util');
 const axios = require('axios');
-const fs = require('fs'); 
+const fs = require('fs');
 app.use(cors());
-app.use(express.json()); 
-function esegui(command){
-  exec(command, (error, stdout, stderr) => {
-    if (error) {
-        console.error(`Execution error: ${error.message}`);
-        return;
-    }
-    if (stderr) {
-        console.error(`Python script error: ${stderr}`);
-        return;
-    }
-    console.log('Data retrieved successfully:', stdout);
-  });
-}
-esegui('solr-9.7.0/bin/solr stop')
-esegui('solr-9.7.0/bin/solr start')
-esegui('python3 ./retrieve.py')
+app.use(express.json());
+
 const SOLR_BASE_URL = 'http://localhost:8983/solr/babysitter_core';
+const babysitters = require("./data_retrieved.json");
+
+const execAsync = promisify(exec);
+
+async function esegui(command) {
+    try {
+        const { stdout, stderr } = await execAsync(command);
+        if (stderr) console.error(`Errore comando: ${stderr}`);
+        console.log(`Risultato comando: ${stdout}`);
+    } catch (error) {
+        console.error(`Errore nell'esecuzione del comando: ${error.message}`);
+    }
+}
+
 async function deleteDocumentsByQuery() {
     try {
-        const deleteXml = fs.readFileSync('./deleteAll.xml', 'utf-8'); // Legge il file deleteAll.xml
+        const deleteXml = fs.readFileSync('./deleteAll.xml', 'utf-8');
         const solrUrl = `${SOLR_BASE_URL}/update?commit=true`;
-        
         const response = await axios.post(solrUrl, deleteXml, {
             headers: { 'Content-Type': 'text/xml' },
         });
@@ -37,8 +36,6 @@ async function deleteDocumentsByQuery() {
     }
 }
 
-
-// Funzione per aggiungere documenti a Solr
 async function addDocumentToSolr(document) {
     try {
         const solrUrl = `${SOLR_BASE_URL}/update?commit=true`;
@@ -51,19 +48,17 @@ async function addDocumentToSolr(document) {
     }
 }
 
-// Funzione per eseguire una query su Solr
 async function queryToSolr(query) {
     try {
         const solrUrl = `${SOLR_BASE_URL}/select`;
         const params = new URLSearchParams({
             q: query,
-            wt: 'json', // Formato JSON
-            hl: 'true',      // Abilita highlighting
-            'hl.fl': 'name,description', // Campi da evidenziare
-            'hl.simple.pre': '<em>',    // Tag di inizio evidenziazione
-            'hl.simple.post': '</em>',  // Tag di fine evidenziazione
+            wt: 'json',
+            hl: 'true',
+            'hl.fl': 'name,description',
+            'hl.simple.pre': '<em>',
+            'hl.simple.post': '</em>',
         });
-
         const response = await axios.get(solrUrl, { params });
         return response.data;
     } catch (error) {
@@ -72,23 +67,40 @@ async function queryToSolr(query) {
     }
 }
 
+async function main() {
+    try {
+        await esegui('solr-9.7.0/bin/solr stop');
+        await esegui('solr-9.7.0/bin/solr start');
+        await esegui('solr-9.7.0/bin/solr create -c babysitter_core');
+        //await esegui('python3 ./retrieve.py');
+        await deleteDocumentsByQuery();
+        await addDocumentToSolr(babysitters);
+        const PORT = 3000;
+        app.listen(PORT, () => {
+            console.log(`Server in esecuzione su http://localhost:${PORT}`);
+        });
+        console.log("Inizializzazione completata con successo!");
+    } catch (error) {
+        console.error("Errore nel flusso principale:", error);
+    }
+}
 
-let babysitters = require("./data_retrieved.json");
-deleteDocumentsByQuery()
-addDocumentToSolr(babysitters);
+main();
+
 app.get("/api/results", async (req, res) => {
-  
-  const query = "name:"+req.query.query+"* or description:*"+req.query.query+"*";
-  const solrResults = await queryToSolr(query);
-
-  if (solrResults) {
-    res.json(solrResults.response.docs);
-  } else {
-    res.status(500).json({ error: 'Errore nella ricerca Solr' });
-  }
+    let query;
+    if (true == true) {
+        query = "name:" + req.query.query + "* or description:*" + req.query.query + "*";
+    } else {
+        query = "(name:" + req.query.query + "* or description:*" + req.query.query + "*) and (age or salary)";
+    }
+    const solrResults = await queryToSolr(query);
+    console.log(solrResults);
+    if (solrResults) {
+        res.json(solrResults.response.docs);
+    } else {
+        res.status(500).json({ error: 'Errore nella ricerca Solr' });
+    }
 });
 
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
+

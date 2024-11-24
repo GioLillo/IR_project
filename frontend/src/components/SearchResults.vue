@@ -62,9 +62,8 @@
           <p class="text-gray-600">
             Age: {{ result.age }}, 
             Salary: {{ result.salary }},
-            Description: {{ result.description }}
           </p>
-          <p class="text-gray-600">{{ result.description }}</p>
+          <p class="text-gray-600" v-html="result.description"></p>
         </li>
       </ul>
     </div>
