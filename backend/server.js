@@ -92,12 +92,8 @@ app.get("/api/results", async (req, res) => {
     }
     const solrResults = await queryToSolr(query);
     solrResults.response.docs.forEach(e => {
-        // Utilizza una regex con l'opzione 'i' per non fare distinzione tra maiuscole e minuscole
         var toAssign = e.description[0].replace(new RegExp(req.query.query, 'gi'), "<b>$&</b>");
         e.description[0] = toAssign;  
-    });
-    solrResults.response.docs.forEach(e => {
-        console.log(e.description[0]);
     });
     if (solrResults) {
         res.json(solrResults.response.docs);

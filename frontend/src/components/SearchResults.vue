@@ -161,6 +161,7 @@ export default {
           // salary: item.salary[0],
           description: item.description[0],
         }));
+        this.$router.push({ path: '/results', query: { query: this.localSearchQuery } });
       } catch (error) {
         console.error("Errore nel recupero dei dati:", error);
       }
