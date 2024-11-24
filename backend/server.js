@@ -56,6 +56,7 @@ async function queryToSolr(query, start) {
             wt: 'json',
             rows: 10,
             start: ((start-1)*10),
+            sort: '_docid_ asc'
         });
         const response = await axios.get(solrUrl, { params });
         return response;
@@ -86,7 +87,6 @@ async function main() {
 main();
 
 app.get("/api/results", async (req, res) => {
-    console.log(req.query.page)
     let query;
     if (true == true) {
         query = "name:" + req.query.query + "* or description:*" + req.query.query + "*";
@@ -100,16 +100,20 @@ app.get("/api/results", async (req, res) => {
         var toAssign = e.description[0].replace(new RegExp(req.query.query, 'gi'), "<b>$&</b>");
         e.description[0] = toAssign;  
     });
-    const suggested=[{
-        url: "https://babysitting24.ch/it/providers/search?q[place]=Lugano",
-        href: "https://babysitting24.ch/it/register/new?registration_referrer=SeeFullProfile&role=consumer&visited_profile=3717245",
-        name: "Luigia",
-        age: "43",
-        salary: "CHF 20\n/ ora\n",
-        description: "Salve,sono Gina mamma di 3 ragazzi ormai grandicelli,oltre ad occuparmi alla crescita e alla cura dei miei figli ho svolto sempre il lavoro di governante e babysitter,ho moltissima esperienza con i ba\u2026"
-    }];
+
+
+    const solrUrl = `${SOLR_BASE_URL}/select`;
+    const params = new URLSearchParams({
+        q: query,
+        wt: 'json',
+        rows: 3,
+    });
+    const response = await axios.get(solrUrl, { params });
+    const sugg=response.data.response.docs;
+    
+
     if (solrResults) {
-        res.json([ress.response.docs,suggested,numfound]);
+        res.json([ress.response.docs,sugg,numfound]);
     } else {
         res.status(500).json({ error: 'Errore nella ricerca Solr' });
     }
