@@ -48,14 +48,14 @@ async function addDocumentToSolr(document) {
     }
 }
 
-async function queryToSolr(query, start = 0, rows = 10) {
+async function queryToSolr(query, start) {
     try {
         const solrUrl = `${SOLR_BASE_URL}/select`;
         const params = new URLSearchParams({
             q: query,
             wt: 'json',
-            rows: rows,
-            start: start,
+            rows: 10,
+            start: ((start-1)*10),
         });
         const response = await axios.get(solrUrl, { params });
         return response.data;
@@ -67,7 +67,7 @@ async function queryToSolr(query, start = 0, rows = 10) {
 
 async function main() {
     try {
-        await esegui('solr-9.7.0/bin/solr stop');
+        await esegui('solr-9.7.0/bin/solr stop --all');
         await esegui('solr-9.7.0/bin/solr start');
         //await esegui('solr-9.7.0/bin/solr create -c babysitter_core');
         //await esegui('python3 ./retrieve.py');
@@ -92,7 +92,7 @@ app.get("/api/results", async (req, res) => {
     } else {
         query = "(name:" + req.query.query + "* or description:*" + req.query.query + "*) and (age or salary)";
     }
-    const solrResults = await queryToSolr(query);
+    const solrResults = await queryToSolr(query,req.query.page);
     solrResults.response.docs.forEach(e => {
         var toAssign = e.description[0].replace(new RegExp(req.query.query, 'gi'), "<b>$&</b>");
         e.description[0] = toAssign;  
