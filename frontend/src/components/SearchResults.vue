@@ -1,98 +1,95 @@
 <template>
-  <!-- Search Bar -->
-  <header class="p-8 pl-16 pr-16">
-    <div class="flex items-center">
-      <div class="flex w-full max-w-2xl border rounded-full shadow-md bg-white overflow-hidden focus-within:ring-2 focus-within:ring-violet-500">
-        <!-- Search Icon -->
-        <div class="flex items-center justify-center px-4">
-          <i class="pi pi-search text-lg font-semibold text-violet-500"></i>
+  <div class="flex flex-col min-h-screen">
+    <!-- Search Bar -->
+    <header class="p-8 pl-16 pr-16">
+      <div class="flex items-center">
+        <div class="flex w-full max-w-2xl border rounded-full shadow-md bg-white overflow-hidden focus-within:ring-2 focus-within:ring-violet-500">
+          <!-- Search Icon -->
+          <div class="flex items-center justify-center px-4">
+            <i class="pi pi-search text-lg font-semibold text-violet-500"></i>
+          </div>
+          <!-- Input Field -->
+          <input
+              ref="searchInput"
+              type="text"
+              v-model="localSearchQuery"
+              class="flex-grow p-3 text-gray-700 focus:outline-none"
+              @keydown.enter="performSearch"
+          />
+          <!-- Delete Icon -->
+          <div
+              class="flex items-center justify-center px-8 cursor-pointer"
+              @click="clearSearch"
+              v-if="localSearchQuery !== ''"
+          >
+            <i class="pi pi-times text-lg font-semibold text-violet-500"></i>
+          </div>
         </div>
-        <!-- Input Field -->
-        <input
-          ref="searchInput"
-          type="text"
-          v-model="localSearchQuery"
-          class="flex-grow p-3 text-gray-700 focus:outline-none"
-          @keydown.enter="performSearch"
-        />
-        <!-- Delete Icon -->
-        <div
-          class="flex items-center justify-center px-8 cursor-pointer"
-          @click="clearSearch"
-          v-if="localSearchQuery !== ''"
-        >
-          <i class="pi pi-times text-lg font-semibold text-violet-500"></i>
+
+        <div class="flex items-center space-x-4 ml-4">
+          <!-- Age Slider -->
+          <div class="flex items-center">
+            <label class="mr-2 text-gray-700">Age:</label>
+            <Slider v-model="ageRange" range class="w-40" :min="0" :max="100" @change="performSearch" />
+            <span class="ml-2 text-gray-600">{{ ageRange[0] }} - {{ ageRange[1] }}</span>
+          </div>
+          <!-- Salary Slider -->
+          <div class="flex items-center">
+            <label class="mr-2 text-gray-700">Salary:</label>
+            <Slider v-model="salaryRange" range class="w-40" :min="0" :max="200000" @change="performSearch" />
+            <span class="ml-2 text-gray-600">{{ salaryRange[0] }} - {{ salaryRange[1] }}</span>
+          </div>
         </div>
       </div>
-
-    <div class="flex items-center space-x-4 ml-4">
-        <!-- Age Slider -->
-        <div class="flex items-center">
-          <label class="mr-2 text-gray-700">Age:</label>
-          <Slider v-model="ageRange" range class="w-40" :min="0" :max="100" @change="performSearch" />
-          <span class="ml-2 text-gray-600">{{ ageRange[0] }} - {{ ageRange[1] }}</span>
-        </div>
-        <!-- Salary Slider -->
-        <div class="flex items-center">
-          <label class="mr-2 text-gray-700">Salary:</label>
-          <Slider v-model="salaryRange" range class="w-40" :min="0" :max="200000" @change="performSearch" />
-          <span class="ml-2 text-gray-600">{{ salaryRange[0] }} - {{ salaryRange[1] }}</span>
-        </div>
-      </div>
-    </div>
-
-  </header>
-
-
-  <!-- Divider -->
-  <div class="w-full border-b border-gray-300 mb-4"></div>
-
-  <!-- Search Results Section -->
-  <main class="flex space-x-4 pl-20">
-    <!-- Search Results -->
-    <div class="flex-1">
-      <h2 class="text-lg font-semibold text-gray-800 mb-3">
-        Search Results for "{{ displayQuery }}"
-      </h2>
-      <ul class="space-y-4">
-        <li v-for="result in results" :key="result.href" class="p-4 border rounded-md shadow-sm bg-white">
-          <h3 class="font-bold text-violet-600">
-            <a :href="result.href" target="_blank">{{ result.name }}</a>
-          </h3>
-          <p class="text-gray-600">
-            Age: {{ result.age }}, 
-            Salary: {{ result.salary }},
-          </p>
-          <p class="text-gray-600" v-html="result.description"></p>
-        </li>
-      </ul>
-    </div>
+    </header>
 
     <!-- Divider -->
-    <div class="border-l border-gray-300"></div>
+    <div class="w-full border-b border-gray-300 mb-4"></div>
 
-    <!-- Suggestions Section -->
-    <aside class="w-1/3 pr-20">
-      <h2 class="text-lg font-semibold text-gray-800 mb-3">Suggested</h2>
-      <ul class="space-y-4">
-        <li
-          v-for="suggestion in suggestions"
-          :key="suggestion.href"
-          class="p-4 border rounded-md shadow-sm bg-white"
-        >
-          <h3 class="font-bold text-violet-600">
-            <a :href="suggestion.href" target="_blank">{{ suggestion.name }}</a>
-          </h3>
-          <!-- <p class="text-gray-600">
-            Age: {{ suggestion.age }}, Salary: {{ suggestion.salary }}
-          </p> -->
-          <p class="text-gray-600" v-html="suggestion.description"></p>
-        </li>
-      </ul>
-    </aside>
+    <!-- Search Results Section -->
+    <main class="flex space-x-4 pl-20 flex-grow">
+      <!-- Search Results -->
+      <div class="flex-1">
+        <h2 class="text-lg font-semibold text-gray-800 mb-3">
+          Search Results for "{{ displayQuery }}"
+        </h2>
+        <ul class="space-y-4">
+          <li v-for="result in results" :key="result.href" class="p-4 border rounded-md shadow-sm bg-white">
+            <h3 class="font-bold text-violet-600">
+              <a :href="result.href" target="_blank">{{ result.name }}</a>
+            </h3>
+            <p class="text-gray-600">
+              Age: {{ result.age }},
+              Salary: {{ result.salary }},
+            </p>
+            <p class="text-gray-600" v-html="result.description"></p>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Divider -->
+      <div class="border-l border-gray-300"></div>
+
+      <!-- Suggestions Section -->
+      <aside class="w-1/3 pr-20">
+        <h2 class="text-lg font-semibold text-gray-800 mb-3">Suggested</h2>
+        <ul class="space-y-4">
+          <li
+              v-for="suggestion in suggestions"
+              :key="suggestion.href"
+              class="p-4 border rounded-md shadow-sm bg-white"
+          >
+            <h3 class="font-bold text-violet-600">
+              <a :href="suggestion.href" target="_blank">{{ suggestion.name }}</a>
+            </h3>
+            <p class="text-gray-600" v-html="suggestion.description"></p>
+          </li>
+        </ul>
+      </aside>
+    </main>
 
     <!-- Pagination -->
-    <footer class="flex space-x-2 mt-6">
+    <footer class="flex justify-center mt-6 p-4 pb-8 border-gray-300">
       <Paginator
           v-model:page="currentPage"
           :rows="10"
@@ -101,7 +98,7 @@
           @pageChange="changePage"
       />
     </footer>
-  </main>
+  </div>
 </template>
 
 <script>
@@ -198,10 +195,10 @@ export default {
         this.$refs.searchInput.focus();
       });
     },
-    changePage(page) {
-      // this.currentPage = event.page + 1;
-      this.fetchResults();
-    },
+    // changePage(page) {
+    //   // this.currentPage = event.page + 1;
+    //   this.fetchResults();
+    // },
   },
   mounted() {
     this.fetchResults();
