@@ -90,13 +90,9 @@
 
     <!-- Pagination -->
     <footer class="flex justify-center mt-6 p-4 pb-8 border-gray-300">
-      <Paginator
-          v-model:page="currentPage"
-          :rows="10"
-          :totalRecords="totalResults"
-          :pageLinkSize="5"
-          @pageChange="changePage"
-      />
+      <Paginator>
+
+      </Paginator>
     </footer>
   </div>
 </template>
@@ -123,18 +119,12 @@ export default {
       localSearchQuery: this.searchQuery,
       displayQuery: this.searchQuery,
       results: [],
-      totalResults: 0,
-      currentPage: 1,
-      resultsPerPage: 10,
       suggestions: [],
       ageRange: [10, 100],
       salaryRange: [0, 40],
     };
   },
   computed: {
-    totalPages() {
-      return Math.ceil(this.totalResults / this.resultsPerPage);
-    },
     filteredResults() {
       return this.results.filter(
         (item) =>
@@ -182,23 +172,16 @@ export default {
       }
     },
     performSearch() {
-      this.currentPage = 1;
       this.displayQuery = this.localSearchQuery;
       this.fetchResults();
       this.$refs.searchInput.blur();
     },
     clearSearch() {
       this.localSearchQuery = "";
-      this.totalResults = 0;
-      this.currentPage = 1;
       this.$nextTick(() => {
         this.$refs.searchInput.focus();
       });
     },
-    // changePage(page) {
-    //   // this.currentPage = event.page + 1;
-    //   this.fetchResults();
-    // },
   },
   mounted() {
     this.fetchResults();
@@ -207,11 +190,6 @@ export default {
 </script>
 
 <style scoped>
-button {
-  transition: all 0.3s ease;
-}
-button:hover {
-  transform: scale(1.05);
-}
+
 </style>
 
