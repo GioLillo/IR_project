@@ -88,12 +88,11 @@ main();
 
 app.get("/api/results", async (req, res) => {
     let query;
-    if (true == true) {
-        query = "name:" + req.query.query + "* or description:*" + req.query.query + "*";
-    } else {
-        query = "(name:" + req.query.query + "* or description:*" + req.query.query + "*) and (age or salary)";
-    }
+    if (true == true) query = "name:" + req.query.query + "* or description:*" + req.query.query + "*";
+    else query = "(name:" + req.query.query + "* or description:*" + req.query.query + "*) and (age or salary)";
+
     const solrResults = await queryToSolr(query,req.query.page);
+    console.log(solrResults);
     const numfound=solrResults.data.response.numFound;
     const ress=solrResults.data;
     ress.response.docs.forEach(e => {
@@ -110,7 +109,10 @@ app.get("/api/results", async (req, res) => {
     });
     const response = await axios.get(solrUrl, { params });
     const sugg=response.data.response.docs;
-    
+    sugg.forEach(e => {
+        var toAssign = e.description[0].replace(new RegExp(req.query.query, 'gi'), "<b>$&</b>");
+        e.description[0] = toAssign;  
+    });
 
     if (solrResults) {
         res.json([ress.response.docs,sugg,numfound]);
