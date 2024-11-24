@@ -57,7 +57,7 @@
       <ul class="space-y-4">
         <li v-for="result in results" :key="result.href" class="p-4 border rounded-md shadow-sm bg-white">
           <h3 class="font-bold text-violet-600">
-            <a :href="result.href" target="_blank">Name : {{ result.name }}</a>
+            <a :href="result.href" target="_blank">{{ result.name }}</a>
           </h3>
           <p class="text-gray-600">
             Age: {{ result.age }}, 
@@ -90,36 +90,54 @@
         </li>
       </ul>
     </aside>
+
+    <!-- Pagination -->
+    <footer class="flex space-x-2 mt-6">
+      <Paginator
+          v-model:page="currentPage"
+          :rows="10"
+          :totalRecords="totalResults"
+          :pageLinkSize="5"
+          @pageChange="changePage"
+      />
+    </footer>
   </main>
 </template>
 
 <script>
 import axios from "axios";
 import Slider from 'primevue/slider';
-
+import Paginator from 'primevue/paginator';
 
 export default {
   name: "SearchResults",
   components: {
-    Slider, 
+    Slider,
+    Paginator
   },
   props: {
     searchQuery: {
       type: String,
-      default: "", 
+      default: "",
     },
   },
   data() {
     return {
-      localSearchQuery: this.searchQuery, 
-      displayQuery: this.searchQuery, 
-      results: [], 
-      suggestions: [], 
-      ageRange: [10, 100], 
-      salaryRange: [0, 40], 
+      localSearchQuery: this.searchQuery,
+      displayQuery: this.searchQuery,
+      results: [],
+      totalResults: 0,
+      currentPage: 1,
+      resultsPerPage: 10,
+      suggestions: [],
+      ageRange: [10, 100],
+      salaryRange: [0, 40],
     };
   },
   computed: {
+    totalPages() {
+      return Math.ceil(this.totalResults / this.resultsPerPage);
+    },
     filteredResults() {
       return this.results.filter(
         (item) =>
@@ -141,17 +159,17 @@ export default {
   methods: {
     async fetchResults() {
       try {
-        const url = `http://localhost:3000/api/results?query=${this.localSearchQuery}`;
+        const url = `http://localhost:3000/api/results?query=${this.localSearchQuery}&page=${this.currentPage}`;
 
         const response = await axios.get(url);
         const data = response.data;
 
         this.results = data.map((item) => ({
-          href: item.href[0], 
-          name: item.name[0], 
-          age: item.age[0], 
-          salary: item.salary[0], 
-          description: item.description[0], 
+          href: item.href[0],
+          name: item.name[0],
+          age: item.age[0],
+          salary: item.salary[0],
+          description: item.description[0],
         }));
 
         this.suggestions = data.slice(0, 3).map((item) => ({
@@ -167,26 +185,36 @@ export default {
       }
     },
     performSearch() {
+      this.currentPage = 1;
       this.displayQuery = this.localSearchQuery;
       this.fetchResults();
-      this.$refs.searchInput.blur(); 
+      this.$refs.searchInput.blur();
     },
     clearSearch() {
       this.localSearchQuery = "";
-      this.results = [];
-      this.suggestions = [];
+      this.totalResults = 0;
+      this.currentPage = 1;
       this.$nextTick(() => {
-        this.$refs.searchInput.focus(); 
+        this.$refs.searchInput.focus();
       });
+    },
+    changePage(page) {
+      // this.currentPage = event.page + 1;
+      this.fetchResults();
     },
   },
   mounted() {
-    this.fetchResults(); 
+    this.fetchResults();
   },
 };
 </script>
 
 <style scoped>
-
+button {
+  transition: all 0.3s ease;
+}
+button:hover {
+  transform: scale(1.05);
+}
 </style>
 

@@ -48,13 +48,14 @@ async function addDocumentToSolr(document) {
     }
 }
 
-async function queryToSolr(query) {
+async function queryToSolr(query, start = 0, rows = 10) {
     try {
         const solrUrl = `${SOLR_BASE_URL}/select`;
         const params = new URLSearchParams({
             q: query,
             wt: 'json',
-            rows: 100
+            rows: rows,
+            start: start,
         });
         const response = await axios.get(solrUrl, { params });
         return response.data;
