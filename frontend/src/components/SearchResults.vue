@@ -13,7 +13,7 @@
               ref="searchInput"
               type="text"
               v-model="localSearchQuery"
-              class="flex-grow p-3 text-gray-700 focus:outline-none"
+              class="flex-grow p-3 text-gray-700 bg-white focus:outline-none"
               @keydown.enter="performSearch"
           />
           <!-- Delete Icon -->
@@ -30,13 +30,27 @@
           <!-- Age Slider -->
           <div class="flex items-center">
             <label class="mr-2 text-gray-700">Age:</label>
-            <Slider v-model="ageRange" range class="w-40" :min="0" :max="100" @change="performSearch" />
+            <Slider 
+              v-model="ageRange" 
+              range 
+              class="w-40" 
+              :min="10" 
+              :max="100" 
+              @change="updateFilters" 
+            />
             <span class="ml-2 text-gray-600">{{ ageRange[0] }} - {{ ageRange[1] }}</span>
           </div>
           <!-- Salary Slider -->
           <div class="flex items-center">
             <label class="mr-2 text-gray-700">Salary:</label>
-            <Slider v-model="salaryRange" range class="w-40" :min="0" :max="200000" @change="performSearch" />
+            <Slider 
+              v-model="salaryRange" 
+              range 
+              class="w-40" 
+              :min="0" 
+              :max="40" 
+              @change="updateFilters" 
+            />
             <span class="ml-2 text-gray-600">{{ salaryRange[0] }} - {{ salaryRange[1] }}</span>
           </div>
         </div>
@@ -156,7 +170,7 @@ export default {
   methods: {
     async fetchResults() {
       try {
-        const url = `http://localhost:3000/api/results?query=${this.localSearchQuery}&page=${this.currentPage}`;
+        const url = `http://localhost:3000/api/results?query=${this.localSearchQuery}&page=${this.currentPage}&ageRange=${JSON.stringify(this.ageRange)}&salaryRange=${JSON.stringify(this.salaryRange)}`;
 
         const response = await axios.get(url);
         const data = response.data;
@@ -176,6 +190,7 @@ export default {
           // salary: item.salary[0],
           description: item.description,
         }));
+        //this.totalResults = data[2];
         this.$router.push({ path: '/results', query: { query: this.localSearchQuery } });
       } catch (error) {
         console.error("Errore nel recupero dei dati:", error);
@@ -198,7 +213,16 @@ export default {
     changePage(event) {
       this.currentPage = event.page+1; 
       this.fetchResults();
-    }
+    },
+    updateFilters() {
+      this.results = this.results.filter(
+        (item) =>
+          item.age >= this.ageRange[0] &&
+          item.age <= this.ageRange[1] &&
+          item.salary >= this.salaryRange[0] &&
+          item.salary <= this.salaryRange[1]
+      );
+    },
   },
   mounted() {
     this.fetchResults();
@@ -213,4 +237,15 @@ button {
 button:hover {
   transform: scale(1.05);
 }
+
+.p-slider-range {
+  background-color: #7c3aed !important; 
+  border-radius: 4px;
+}
+
+.p-slider-handle {
+  background-color: #7c3aed !important;
+  border: 2px solid #7c3aed !important;
+}
+
 </style>

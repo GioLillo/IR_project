@@ -15,7 +15,7 @@
             type="text"
             v-model="searchQuery"
             placeholder="Search for nannies or babysitters..."
-            class="flex-grow p-3 text-gray-700 focus:outline-none"
+            class="flex-grow p-3 text-gray-700 bg-white focus:outline-none"
             @keydown.enter="performSearch"
         />
       </div>
