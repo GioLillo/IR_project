@@ -29,18 +29,18 @@ Questo file tiene traccia delle attività da completare per il progetto.
 ## Note Aggiuntive 🗒️
   - [✔️] **Fix divider dynamic length**: Sistemare divisore per quando si hanno pochi risultati
   - [✔️] **Deadline**: 26/11
-  - [❌] **Paging**: Mettere il paging bene
-  - [❌] **Deadline**: 27/11
+  - [✔️] **Paging**: Mettere il paging bene
+  - [✔️] **Deadline**: 27/11
   - [❌] **Results card**: Inserire URI e dividere age, salary da description
   - [❌] **Deadline**: 29/11
-  - [❌] **No results brutto**: Sistemare il no-results text
-  - [❌] **Deadline**: 29/11
+  - [✔️] **No results brutto**: Sistemare il no-results text
+  - [✔️] **Deadline**: 29/11
 
 ---
 
 ## Da fare
   - **Giorgia**: Filtering, Recommendation
-  - **Cice**: No-results text, Slider, Results card
-  - **Sergio**: Paging, User relevance
+  - **Cice**: Results card(dislike e like)
+  - **Sergio**: User relevance
 
 ---
