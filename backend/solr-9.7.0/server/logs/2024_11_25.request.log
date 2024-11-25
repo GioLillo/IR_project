@@ -7606,3 +7606,7 @@
 127.0.0.1 - - [25/Nov/2024:15:57:02 +0000] "GET /solr/babysitter_core/select?q=name%3Asa*+or+description%3A*sa*&wt=json&rows=3 HTTP/1.1" 200 1962
 127.0.0.1 - - [25/Nov/2024:15:57:04 +0000] "GET /solr/babysitter_core/select?q=name%3Asara*+or+description%3A*sara*&wt=json&rows=10&start=0 HTTP/1.1" 200 1966
 127.0.0.1 - - [25/Nov/2024:15:57:04 +0000] "GET /solr/babysitter_core/select?q=name%3Asara*+or+description%3A*sara*&wt=json&rows=3 HTTP/1.1" 200 1946
+127.0.0.1 - - [25/Nov/2024:16:05:43 +0000] "GET /solr/babysitter_core/select?q=name%3Asara*+or+description%3A*sara*&wt=json&rows=10&start=0 HTTP/1.1" 200 1966
+127.0.0.1 - - [25/Nov/2024:16:05:43 +0000] "GET /solr/babysitter_core/select?q=name%3Asara*+or+description%3A*sara*&wt=json&rows=3 HTTP/1.1" 200 1946
+127.0.0.1 - - [25/Nov/2024:16:06:12 +0000] "GET /solr/babysitter_core/select?q=name%3Asara*+or+description%3A*sara*&wt=json&rows=10&start=0 HTTP/1.1" 200 1966
+127.0.0.1 - - [25/Nov/2024:16:06:12 +0000] "GET /solr/babysitter_core/select?q=name%3Asara*+or+description%3A*sara*&wt=json&rows=3 HTTP/1.1" 200 1946
