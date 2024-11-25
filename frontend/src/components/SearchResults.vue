@@ -29,29 +29,29 @@
         <div class="flex items-center space-x-4 ml-4">
           <!-- Age Slider -->
           <div class="flex items-center">
-            <label class="mr-2 text-gray-700">Age:</label>
-            <Slider 
-              v-model="ageRange" 
-              range 
-              class="w-40" 
-              :min="10" 
-              :max="100" 
-              @change="updateFilters" 
+            <label class="mr-4 text-gray-700">Age:</label>
+            <Slider
+              v-model="ageRange"
+              range
+              class="w-40"
+              :min="10"
+              :max="100"
+              @change="updateFilters"
             />
-            <span class="ml-2 text-gray-600">{{ ageRange[0] }} - {{ ageRange[1] }}</span>
+            <span class="ml-4 text-gray-600">{{ ageRange[0] }} - {{ ageRange[1] }}</span>
           </div>
           <!-- Salary Slider -->
           <div class="flex items-center">
-            <label class="mr-2 text-gray-700">Salary:</label>
-            <Slider 
-              v-model="salaryRange" 
-              range 
-              class="w-40" 
-              :min="0" 
-              :max="40" 
-              @change="updateFilters" 
+            <label class="mr-4 text-gray-700">Salary:</label>
+            <Slider
+              v-model="salaryRange"
+              range
+              class="w-40"
+              :min="0"
+              :max="40"
+              @change="updateFilters"
             />
-            <span class="ml-2 text-gray-600">{{ salaryRange[0] }} - {{ salaryRange[1] }}</span>
+            <span class="ml-4 text-gray-600">{{ salaryRange[0] }} - {{ salaryRange[1] }}</span>
           </div>
         </div>
       </div>
@@ -79,6 +79,9 @@
             <p class="text-gray-600" v-html="result.description"></p>
           </li>
         </ul>
+        <h3 v-if="results.length==0" class="font-bold text-xl text-violet-600">
+          No results found for: "{{ displayQuery }}"
+        </h3>
       </div>
 
       <!-- Divider -->
