@@ -31,12 +31,12 @@
           <div class="flex items-center">
             <label class="mr-4 text-gray-700">Age:</label>
             <Slider
-              v-model="ageRange"
-              range
-              class="w-40"
-              :min="10"
-              :max="100"
-              @change="updateFilters"
+                v-model="ageRange"
+                range
+                class="w-40"
+                :min="10"
+                :max="100"
+                @change="updateFilters"
             />
             <span class="ml-4 text-gray-600">{{ ageRange[0] }} - {{ ageRange[1] }}</span>
           </div>
@@ -44,12 +44,12 @@
           <div class="flex items-center">
             <label class="mr-4 text-gray-700">Salary:</label>
             <Slider
-              v-model="salaryRange"
-              range
-              class="w-40"
-              :min="0"
-              :max="40"
-              @change="updateFilters"
+                v-model="salaryRange"
+                range
+                class="w-40"
+                :min="0"
+                :max="40"
+                @change="updateFilters"
             />
             <span class="ml-4 text-gray-600">{{ salaryRange[0] }} - {{ salaryRange[1] }}</span>
           </div>
@@ -60,6 +60,22 @@
     <!-- Divider -->
     <div class="w-full border-b border-gray-300 mb-4"></div>
 
+    <!-- No Results Found -->
+    <div v-if="isResultsEmpty" class="flex flex-col items-start p-10">
+      <h3 class="font-bold text-2xl pl-16 pr-16 text-gray-700 mb-6">
+        Looks like there aren't any matches for your search
+      </h3>
+      <div class="pl-16 pr-16 ml-4 text-xl text-gray-700">
+        Search tips:
+      </div>
+      <ul class="pl-16 pr-16 ml-12 list-disc text-lg text-gray-700 mt-6 space-y-4">
+        <li>Make sure all words are spelled correctly</li>
+        <li>Try using different keywords</li>
+        <li>Try changing the range of age or salary</li>
+      </ul>
+    </div>
+
+
     <div v-if="isLoading" class="flex justify-center items-center flex-grow">
       <i class="pi pi-spin pi-spinner font-extrabold text-violet-500"></i> 
       <p class="ml-2 text-xl text-gray-700">Loading...</p>
@@ -69,7 +85,7 @@
     <main v-else class="flex space-x-4 pl-20 flex-grow">
 
       <!-- Search Results -->
-      <div class="flex-1">
+      <div class="flex-1" v-if="!isResultsEmpty">
         <h2 class="text-lg font-semibold text-gray-800 mb-3">
           Search Results for "{{ displayQuery }}"
         </h2>
@@ -85,18 +101,15 @@
             <p class="text-gray-600" v-html="result.description"></p>
           </li>
         </ul>
-        <h3 v-if="results.length==0" class="font-bold text-xl text-violet-600">
-          No results found for: "{{ displayQuery }}"
-        </h3>
       </div>
 
       <!-- Divider -->
-      <div v-if="suggestions.length <= 1" class="h-[220px] border-l border-gray-300"></div>
-      <div v-if="suggestions.length == 2" class="h-[360px] border-l border-gray-300"></div>
-      <div v-if="suggestions.length >= 3" class="h-[520px] border-l border-gray-300"></div>
+      <div v-if="suggestions.length <= 1 && !isResultsEmpty" class="h-[220px] border-l border-gray-300"></div>
+      <div v-if="suggestions.length == 2 && !isResultsEmpty" class="h-[360px] border-l border-gray-300"></div>
+      <div v-if="suggestions.length >= 3 && !isResultsEmpty" class="h-[520px] border-l border-gray-300"></div>
 
       <!-- Suggestions Section -->
-      <aside class="w-1/3 pr-20">
+      <aside class="w-1/3 pr-20" v-if="!isResultsEmpty">
         <h2 class="text-lg font-semibold text-gray-800 mb-3">Suggested</h2>
         <ul class="space-y-4">
           <li
@@ -116,11 +129,16 @@
     <!-- Pagination -->
     <footer class="flex justify-center mt-6 p-4 pb-8 border-gray-300">
       <Paginator
-          v-model:page="currentPage"
-          :rows="10"
-          :totalRecords="totalResults"
-          :pageLinkSize="5"
-          @pageChange="changePage"
+        :rows="resultsPerPage"
+        :totalRecords="this.totalResults"
+        :page="currentPage - 1"
+        @page="changePage"
+        :template="{
+          '640px': 'PrevPageLink CurrentPageReport NextPageLink',
+          '960px': 'FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink',
+          '1300px': 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
+          default: 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink'
+        }"
       />
     </footer>
   </div>
@@ -154,6 +172,7 @@ export default {
       suggestions: [],
       ageRange: [10, 100],
       salaryRange: [0, 40],
+      isResultsEmpty: false,
       isLoading: false,
     };
   },
@@ -235,7 +254,7 @@ export default {
       });
     },
     changePage(event) {
-      this.currentPage = event.page+1; 
+      this.currentPage = event.page + 1;
       this.fetchResults();
     },
     updateFilters() {
@@ -249,10 +268,4 @@ export default {
 </script>
 
 <style scoped>
-button {
-  transition: all 0.3s ease;
-}
-button:hover {
-  transform: scale(1.05);
-}
 </style>

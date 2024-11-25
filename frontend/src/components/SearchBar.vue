@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     performSearch() {
-      this.$router.push({ path: '/results', query: { query: this.searchQuery } });
+      this.$router.push({ path: '/results', query: { query: this.searchQuery }});
     },
   },
 };
