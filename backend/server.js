@@ -92,10 +92,10 @@ app.get("/api/results", async (req, res) => {
     const ageRange = req.query.ageRange ? JSON.parse(req.query.ageRange) : [10, 100];
     const salaryRange = req.query.salaryRange ? JSON.parse(req.query.salaryRange) : [0, 40];
 
-    const filters = [
-        `age:[${ageRange[0]} TO ${ageRange[1]}]`,
-        `salary:[${salaryRange[0]} TO ${salaryRange[1]}]`
-    ];
+    // const filters = [
+    //     `age:[${ageRange[0]} TO ${ageRange[1]}]`,
+    //     `salary:[${salaryRange[0]} TO ${salaryRange[1]}]`
+    // ];
 
 
     const solrResults = await queryToSolr(query,req.query.page);
@@ -111,7 +111,7 @@ app.get("/api/results", async (req, res) => {
     const solrUrl = `${SOLR_BASE_URL}/select`;
     const params = new URLSearchParams({
         q: query,
-        fq: filters,
+        // fq: filters,
         wt: 'json',
         rows: 3,
     });
