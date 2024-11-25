@@ -1,52 +1,50 @@
-2024-11-24 16:30:45.914 INFO  (main) [c: s: r: x: t:] o.e.j.s.Server jetty-10.0.22; built: 2024-06-27T16:03:51.502Z; git: 5c8471e852d377fd726ad9b1692c35ffc5febb09; jvm 21.0.5+11-Ubuntu-1ubuntu124.04
-2024-11-24 16:30:46.063 WARN  (main) [c: s: r: x: t:] o.e.j.u.DeprecationWarning Using @Deprecated Class org.eclipse.jetty.servlet.listener.ELContextCleaner
-2024-11-24 16:30:46.079 INFO  (main) [c: s: r: x: t:] o.a.s.s.CoreContainerProvider Using logger factory org.apache.logging.slf4j.Log4jLoggerFactory
-2024-11-24 16:30:46.084 INFO  (main) [c: s: r: x: t:] o.a.s.s.CoreContainerProvider  ___      _       Welcome to Apache Solr™ version 9.7.0
-2024-11-24 16:30:46.084 INFO  (main) [c: s: r: x: t:] o.a.s.s.CoreContainerProvider / __| ___| |_ _   Starting in standalone mode on port 8983
-2024-11-24 16:30:46.084 INFO  (main) [c: s: r: x: t:] o.a.s.s.CoreContainerProvider \__ \/ _ \ | '_|  Install dir: /home/sergio/USI/Information Retrieval/IR_project/backend/solr-9.7.0
-2024-11-24 16:30:46.084 INFO  (main) [c: s: r: x: t:] o.a.s.s.CoreContainerProvider |___/\___/_|_|    Start time: 2024-11-24T16:30:46.084298961Z
-2024-11-24 16:30:46.085 INFO  (main) [c: s: r: x: t:] o.a.s.s.CoreContainerProvider Solr started with "-XX:+CrashOnOutOfMemoryError" that will crash on any OutOfMemoryError exception. The cause of the OOME will be logged in the crash file at the following path: /home/sergio/USI/Information Retrieval/IR_project/backend/solr-9.7.0/server/logs/jvm_crash_35712.log
-2024-11-24 16:30:46.136 INFO  (main) [c: s: r: x: t:] o.a.l.s.MemorySegmentIndexInputProvider Using MemorySegmentIndexInput and native madvise support with Java 21 or later; to disable start with -Dorg.apache.lucene.store.MMapDirectory.enableMemorySegments=false
-2024-11-24 16:30:46.151 INFO  (main) [c: s: r: x: t:] o.a.l.i.v.PanamaVectorizationProvider Java vector incubator API enabled; uses preferredBitSize=256; FMA enabled
-2024-11-24 16:30:46.153 INFO  (main) [c: s: r: x: t:] o.a.s.s.CoreContainerProvider Solr Home: /home/sergio/USI/Information Retrieval/IR_project/backend/solr-9.7.0/server/solr (source: system property: solr.solr.home)
-2024-11-24 16:30:46.159 INFO  (main) [c: s: r: x: t:] o.a.s.c.SolrXmlConfig Loading solr.xml from /home/sergio/USI/Information Retrieval/IR_project/backend/solr-9.7.0/server/solr/solr.xml
-2024-11-24 16:30:46.176 INFO  (main) [c: s: r: x: t:] o.a.s.c.SolrResourceLoader Added 1 libs to classloader, from paths: [/home/sergio/USI/Information%20Retrieval/IR_project/backend/solr-9.7.0/lib]
-2024-11-24 16:30:46.603 INFO  (main) [c: s: r: x: t:] o.a.s.u.t.SimplePropagator Always-on trace id generation enabled.
-2024-11-24 16:30:46.767 WARN  (main) [c: s: r: x: t:] o.a.s.u.StartupLoggingUtils Jetty request logging enabled. Will retain logs for last 3 days. See chapter "Configuring Logging" in reference guide for how to configure.
-2024-11-24 16:30:46.768 WARN  (main) [c: s: r: x: t:] o.a.s.c.CoreContainer Not all security plugins configured!  authentication=disabled authorization=disabled.  Solr is only as secure as you make it. Consider configuring authentication/authorization before exposing Solr to users internal or external.  See https://s.apache.org/solrsecurity for more info
-2024-11-24 16:30:46.871 INFO  (main) [c: s: r: x: t:] o.a.s.c.CorePropertiesLocator Found 1 core definitions underneath /home/sergio/USI/Information Retrieval/IR_project/backend/solr-9.7.0/server/solr
-2024-11-24 16:30:46.871 INFO  (main) [c: s: r: x: t:] o.a.s.c.CorePropertiesLocator Cores are: [babysitter_core]
-2024-11-24 16:30:46.890 INFO  (coreLoadExecutor-13-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.c.SolrConfig Using Lucene MatchVersion: 9.11.0
-2024-11-24 16:30:46.927 INFO  (coreLoadExecutor-13-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.s.IndexSchema Schema name=default-config
-2024-11-24 16:30:46.988 WARN  (main) [c: s: r: x: t:] o.g.j.m.i.MessagingBinders A class jakarta.activation.DataSource for a default provider MessageBodyWriter<jakarta.activation.DataSource> was not found. The provider is not available.
-2024-11-24 16:30:47.071 INFO  (coreLoadExecutor-13-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.s.IndexSchema Loaded schema default-config/1.7 with uniqueid field id
-2024-11-24 16:30:47.071 INFO  (coreLoadExecutor-13-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.c.CoreContainer Creating SolrCore 'babysitter_core' using configuration from instancedir /home/sergio/USI/Information Retrieval/IR_project/backend/solr-9.7.0/server/solr/babysitter_core, trusted=true
-2024-11-24 16:30:47.096 INFO  (coreLoadExecutor-13-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.c.SolrCore Opening new SolrCore at [/home/sergio/USI/Information Retrieval/IR_project/backend/solr-9.7.0/server/solr/babysitter_core], dataDir=[/home/sergio/USI/Information Retrieval/IR_project/backend/solr-9.7.0/server/solr/babysitter_core/data/]
-2024-11-24 16:30:47.198 INFO  (main) [c: s: r: x: t:] o.a.s.j.SolrRequestAuthorizer Creating a new SolrRequestAuthorizer
-2024-11-24 16:30:47.276 INFO  (main) [c: s: r: x: t:] o.e.j.s.h.ContextHandler Started o.e.j.w.WebAppContext@7726e185{solr-jetty-context.xml,/solr,file:///home/sergio/USI/Information%20Retrieval/IR_project/backend/solr-9.7.0/server/solr-webapp/webapp/,AVAILABLE}{/home/sergio/USI/Information Retrieval/IR_project/backend/solr-9.7.0/server/solr-webapp/webapp}
-2024-11-24 16:30:47.280 INFO  (main) [c: s: r: x: t:] o.e.j.s.RequestLogWriter Opened /home/sergio/USI/Information Retrieval/IR_project/backend/solr-9.7.0/server/logs/2024_11_24.request.log
-2024-11-24 16:30:47.283 INFO  (main) [c: s: r: x: t:] o.e.j.s.AbstractConnector Started ServerConnector@464649c{HTTP/1.1, (http/1.1, h2c)}{127.0.0.1:8983}
-2024-11-24 16:30:47.285 INFO  (main) [c: s: r: x: t:] o.e.j.s.Server Started Server@5ae76500{STARTING}[10.0.22,sto=0] @1977ms
-2024-11-24 16:30:47.404 INFO  (coreLoadExecutor-13-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.j.SolrRequestAuthorizer Creating a new SolrRequestAuthorizer
-2024-11-24 16:30:47.422 INFO  (coreLoadExecutor-13-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.u.UpdateHandler Using UpdateLog implementation: org.apache.solr.update.UpdateLog
-2024-11-24 16:30:47.422 INFO  (coreLoadExecutor-13-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.u.UpdateLog Initializing UpdateLog: dataDir= defaultSyncLevel=FLUSH numRecordsToKeep=100 maxNumLogsToKeep=10 numVersionBuckets=65536
-2024-11-24 16:30:47.422 INFO  (coreLoadExecutor-13-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.u.CommitTracker Hard AutoCommit: if uncommitted for 15000ms; 
-2024-11-24 16:30:47.422 INFO  (coreLoadExecutor-13-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.u.CommitTracker Soft AutoCommit: if uncommitted for 3000ms; 
-2024-11-24 16:30:47.493 INFO  (coreLoadExecutor-13-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.r.ManagedResourceStorage File-based storage initialized to use dir: /home/sergio/USI/Information Retrieval/IR_project/backend/solr-9.7.0/server/solr/babysitter_core/conf
-2024-11-24 16:30:47.500 INFO  (coreLoadExecutor-13-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.s.DirectSolrSpellChecker init: {maxEdits=2, minPrefix=1, maxInspections=5, minQueryLength=4, accuracy=0.5, maxQueryFrequency=0.01, name=default, field=_text_, classname=solr.DirectSolrSpellChecker, distanceMeasure=internal}
-2024-11-24 16:30:47.504 INFO  (coreLoadExecutor-13-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.h.ReplicationHandler Commits will be reserved for 10000 ms
-2024-11-24 16:30:47.505 INFO  (searcherExecutor-15-thread-1-processing-babysitter_core) [c: s: r: x:babysitter_core t:] o.a.s.c.QuerySenderListener QuerySenderListener done.
-2024-11-24 16:30:47.505 INFO  (searcherExecutor-15-thread-1-processing-babysitter_core) [c: s: r: x:babysitter_core t:] o.a.s.h.c.SpellCheckComponent Loading spell index for spellchecker: default
-2024-11-24 16:30:47.510 INFO  (searcherExecutor-15-thread-1-processing-babysitter_core) [c: s: r: x:babysitter_core t:] o.a.s.c.SolrCore Registered new searcher autowarm time: 0 ms
-2024-11-24 16:31:30.292 INFO  (qtp1792384402-80-localhost-1) [c: s: r: x:babysitter_core t:localhost-1] o.a.s.c.S.Request webapp=/solr path=/select params={q=name:c*+or+description:*c*&start=0&sort=_docid_+asc&rows=10&wt=json} hits=116 status=0 QTime=57
-2024-11-24 16:31:30.344 INFO  (qtp1792384402-47-localhost-2) [c: s: r: x:babysitter_core t:localhost-2] o.a.s.c.S.Request webapp=/solr path=/select params={q=name:c*+or+description:*c*&rows=3&wt=json} hits=116 status=0 QTime=9
-2024-11-24 16:32:33.674 INFO  (ShutdownMonitor) [c: s: r: x: t:] o.e.j.s.Server Stopped Server@5ae76500{STOPPING}[10.0.22,sto=0]
-2024-11-24 16:32:33.676 INFO  (ShutdownMonitor) [c: s: r: x: t:] o.e.j.s.AbstractConnector Stopped ServerConnector@464649c{HTTP/1.1, (http/1.1, h2c)}{127.0.0.1:8983}
-2024-11-24 16:32:33.683 INFO  (ShutdownMonitor) [c: s: r: x: t:] o.a.s.c.CoreContainer Shutting down CoreContainer instance=612635506
-2024-11-24 16:32:33.684 INFO  (coreCloseExecutor-21-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.c.SolrCore CLOSING SolrCore org.apache.solr.core.SolrCore@50f94eb2 babysitter_core
-2024-11-24 16:32:33.684 INFO  (coreCloseExecutor-21-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.m.SolrMetricManager Closing metric reporters for registry=solr.core.babysitter_core tag=SolrCore@50f94eb2
-2024-11-24 16:32:33.696 INFO  (coreCloseExecutor-21-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.u.DirectUpdateHandler2 Committing on IndexWriter.close()  ... SKIPPED (unnecessary).
-2024-11-24 16:32:33.706 INFO  (ShutdownMonitor) [c: s: r: x: t:] o.a.s.m.SolrMetricManager Closing metric reporters for registry=solr.node tag=null
-2024-11-24 16:32:33.711 INFO  (ShutdownMonitor) [c: s: r: x: t:] o.a.s.m.SolrMetricManager Closing metric reporters for registry=solr.jvm tag=null
-2024-11-24 16:32:33.713 INFO  (ShutdownMonitor) [c: s: r: x: t:] o.a.s.m.SolrMetricManager Closing metric reporters for registry=solr.jetty tag=null
-2024-11-24 16:32:33.717 INFO  (ShutdownMonitor) [c: s: r: x: t:] o.e.j.s.h.ContextHandler Stopped o.e.j.w.WebAppContext@7726e185{solr-jetty-context.xml,/solr,null,STOPPED}{/home/sergio/USI/Information Retrieval/IR_project/backend/solr-9.7.0/server/solr-webapp/webapp}
+2024-11-25 15:31:33.348 INFO  (main) [c: s: r: x: t:] o.e.j.s.Server jetty-10.0.22; built: 2024-06-27T16:03:51.502Z; git: 5c8471e852d377fd726ad9b1692c35ffc5febb09; jvm 21.0.5+11-Ubuntu-1ubuntu124.04
+2024-11-25 15:31:33.637 WARN  (main) [c: s: r: x: t:] o.e.j.u.DeprecationWarning Using @Deprecated Class org.eclipse.jetty.servlet.listener.ELContextCleaner
+2024-11-25 15:31:33.665 INFO  (main) [c: s: r: x: t:] o.a.s.s.CoreContainerProvider Using logger factory org.apache.logging.slf4j.Log4jLoggerFactory
+2024-11-25 15:31:33.672 INFO  (main) [c: s: r: x: t:] o.a.s.s.CoreContainerProvider  ___      _       Welcome to Apache Solr™ version 9.7.0
+2024-11-25 15:31:33.672 INFO  (main) [c: s: r: x: t:] o.a.s.s.CoreContainerProvider / __| ___| |_ _   Starting in standalone mode on port 8983
+2024-11-25 15:31:33.672 INFO  (main) [c: s: r: x: t:] o.a.s.s.CoreContainerProvider \__ \/ _ \ | '_|  Install dir: /home/sergio/USI/Information Retrieval/IR_project/backend/solr-9.7.0
+2024-11-25 15:31:33.673 INFO  (main) [c: s: r: x: t:] o.a.s.s.CoreContainerProvider |___/\___/_|_|    Start time: 2024-11-25T15:31:33.672990561Z
+2024-11-25 15:31:33.675 INFO  (main) [c: s: r: x: t:] o.a.s.s.CoreContainerProvider Solr started with "-XX:+CrashOnOutOfMemoryError" that will crash on any OutOfMemoryError exception. The cause of the OOME will be logged in the crash file at the following path: /home/sergio/USI/Information Retrieval/IR_project/backend/solr-9.7.0/server/logs/jvm_crash_83069.log
+2024-11-25 15:31:33.780 INFO  (main) [c: s: r: x: t:] o.a.l.s.MemorySegmentIndexInputProvider Using MemorySegmentIndexInput and native madvise support with Java 21 or later; to disable start with -Dorg.apache.lucene.store.MMapDirectory.enableMemorySegments=false
+2024-11-25 15:31:33.810 INFO  (main) [c: s: r: x: t:] o.a.l.i.v.PanamaVectorizationProvider Java vector incubator API enabled; uses preferredBitSize=256; FMA enabled
+2024-11-25 15:31:33.813 INFO  (main) [c: s: r: x: t:] o.a.s.s.CoreContainerProvider Solr Home: /home/sergio/USI/Information Retrieval/IR_project/backend/solr-9.7.0/server/solr (source: system property: solr.solr.home)
+2024-11-25 15:31:33.826 INFO  (main) [c: s: r: x: t:] o.a.s.c.SolrXmlConfig Loading solr.xml from /home/sergio/USI/Information Retrieval/IR_project/backend/solr-9.7.0/server/solr/solr.xml
+2024-11-25 15:31:33.861 INFO  (main) [c: s: r: x: t:] o.a.s.c.SolrResourceLoader Added 1 libs to classloader, from paths: [/home/sergio/USI/Information%20Retrieval/IR_project/backend/solr-9.7.0/lib]
+2024-11-25 15:31:34.580 INFO  (main) [c: s: r: x: t:] o.a.s.u.t.SimplePropagator Always-on trace id generation enabled.
+2024-11-25 15:31:34.905 WARN  (main) [c: s: r: x: t:] o.a.s.u.StartupLoggingUtils Jetty request logging enabled. Will retain logs for last 3 days. See chapter "Configuring Logging" in reference guide for how to configure.
+2024-11-25 15:31:34.907 WARN  (main) [c: s: r: x: t:] o.a.s.c.CoreContainer Not all security plugins configured!  authentication=disabled authorization=disabled.  Solr is only as secure as you make it. Consider configuring authentication/authorization before exposing Solr to users internal or external.  See https://s.apache.org/solrsecurity for more info
+2024-11-25 15:31:35.088 INFO  (main) [c: s: r: x: t:] o.a.s.c.CorePropertiesLocator Found 1 core definitions underneath /home/sergio/USI/Information Retrieval/IR_project/backend/solr-9.7.0/server/solr
+2024-11-25 15:31:35.088 INFO  (main) [c: s: r: x: t:] o.a.s.c.CorePropertiesLocator Cores are: [babysitter_core]
+2024-11-25 15:31:35.121 INFO  (coreLoadExecutor-13-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.c.SolrConfig Using Lucene MatchVersion: 9.11.0
+2024-11-25 15:31:35.184 INFO  (coreLoadExecutor-13-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.s.IndexSchema Schema name=default-config
+2024-11-25 15:31:35.294 WARN  (main) [c: s: r: x: t:] o.g.j.m.i.MessagingBinders A class jakarta.activation.DataSource for a default provider MessageBodyWriter<jakarta.activation.DataSource> was not found. The provider is not available.
+2024-11-25 15:31:35.411 INFO  (coreLoadExecutor-13-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.s.IndexSchema Loaded schema default-config/1.7 with uniqueid field id
+2024-11-25 15:31:35.411 INFO  (coreLoadExecutor-13-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.c.CoreContainer Creating SolrCore 'babysitter_core' using configuration from instancedir /home/sergio/USI/Information Retrieval/IR_project/backend/solr-9.7.0/server/solr/babysitter_core, trusted=true
+2024-11-25 15:31:35.463 INFO  (coreLoadExecutor-13-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.c.SolrCore Opening new SolrCore at [/home/sergio/USI/Information Retrieval/IR_project/backend/solr-9.7.0/server/solr/babysitter_core], dataDir=[/home/sergio/USI/Information Retrieval/IR_project/backend/solr-9.7.0/server/solr/babysitter_core/data/]
+2024-11-25 15:31:35.563 INFO  (main) [c: s: r: x: t:] o.a.s.j.SolrRequestAuthorizer Creating a new SolrRequestAuthorizer
+2024-11-25 15:31:35.717 INFO  (main) [c: s: r: x: t:] o.e.j.s.h.ContextHandler Started o.e.j.w.WebAppContext@7726e185{solr-jetty-context.xml,/solr,file:///home/sergio/USI/Information%20Retrieval/IR_project/backend/solr-9.7.0/server/solr-webapp/webapp/,AVAILABLE}{/home/sergio/USI/Information Retrieval/IR_project/backend/solr-9.7.0/server/solr-webapp/webapp}
+2024-11-25 15:31:35.725 INFO  (main) [c: s: r: x: t:] o.e.j.s.RequestLogWriter Opened /home/sergio/USI/Information Retrieval/IR_project/backend/solr-9.7.0/server/logs/2024_11_25.request.log
+2024-11-25 15:31:35.730 INFO  (main) [c: s: r: x: t:] o.e.j.s.AbstractConnector Started ServerConnector@464649c{HTTP/1.1, (http/1.1, h2c)}{127.0.0.1:8983}
+2024-11-25 15:31:35.732 INFO  (main) [c: s: r: x: t:] o.e.j.s.Server Started Server@5ae76500{STARTING}[10.0.22,sto=0] @3738ms
+2024-11-25 15:31:35.949 INFO  (coreLoadExecutor-13-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.j.SolrRequestAuthorizer Creating a new SolrRequestAuthorizer
+2024-11-25 15:31:35.967 INFO  (coreLoadExecutor-13-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.u.UpdateHandler Using UpdateLog implementation: org.apache.solr.update.UpdateLog
+2024-11-25 15:31:35.967 INFO  (coreLoadExecutor-13-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.u.UpdateLog Initializing UpdateLog: dataDir= defaultSyncLevel=FLUSH numRecordsToKeep=100 maxNumLogsToKeep=10 numVersionBuckets=65536
+2024-11-25 15:31:35.968 INFO  (coreLoadExecutor-13-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.u.CommitTracker Hard AutoCommit: if uncommitted for 15000ms; 
+2024-11-25 15:31:35.968 INFO  (coreLoadExecutor-13-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.u.CommitTracker Soft AutoCommit: if uncommitted for 3000ms; 
+2024-11-25 15:31:36.094 INFO  (coreLoadExecutor-13-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.r.ManagedResourceStorage File-based storage initialized to use dir: /home/sergio/USI/Information Retrieval/IR_project/backend/solr-9.7.0/server/solr/babysitter_core/conf
+2024-11-25 15:31:36.108 INFO  (coreLoadExecutor-13-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.s.DirectSolrSpellChecker init: {name=default, field=_text_, classname=solr.DirectSolrSpellChecker, distanceMeasure=internal, accuracy=0.5, maxQueryFrequency=0.01, maxEdits=2, minPrefix=1, maxInspections=5, minQueryLength=4}
+2024-11-25 15:31:36.117 INFO  (coreLoadExecutor-13-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.h.ReplicationHandler Commits will be reserved for 10000 ms
+2024-11-25 15:31:36.118 INFO  (searcherExecutor-15-thread-1-processing-babysitter_core) [c: s: r: x:babysitter_core t:] o.a.s.c.QuerySenderListener QuerySenderListener done.
+2024-11-25 15:31:36.119 INFO  (searcherExecutor-15-thread-1-processing-babysitter_core) [c: s: r: x:babysitter_core t:] o.a.s.h.c.SpellCheckComponent Loading spell index for spellchecker: default
+2024-11-25 15:31:36.128 INFO  (searcherExecutor-15-thread-1-processing-babysitter_core) [c: s: r: x:babysitter_core t:] o.a.s.c.SolrCore Registered new searcher autowarm time: 0 ms
+2024-11-25 15:31:54.869 INFO  (ShutdownMonitor) [c: s: r: x: t:] o.e.j.s.Server Stopped Server@5ae76500{STOPPING}[10.0.22,sto=0]
+2024-11-25 15:31:54.873 INFO  (ShutdownMonitor) [c: s: r: x: t:] o.e.j.s.AbstractConnector Stopped ServerConnector@464649c{HTTP/1.1, (http/1.1, h2c)}{127.0.0.1:8983}
+2024-11-25 15:31:54.884 INFO  (ShutdownMonitor) [c: s: r: x: t:] o.a.s.c.CoreContainer Shutting down CoreContainer instance=612635506
+2024-11-25 15:31:54.886 INFO  (coreCloseExecutor-21-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.c.SolrCore CLOSING SolrCore org.apache.solr.core.SolrCore@34a76330 babysitter_core
+2024-11-25 15:31:54.887 INFO  (coreCloseExecutor-21-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.m.SolrMetricManager Closing metric reporters for registry=solr.core.babysitter_core tag=SolrCore@34a76330
+2024-11-25 15:31:54.923 INFO  (coreCloseExecutor-21-thread-1) [c: s: r: x:babysitter_core t:] o.a.s.u.DirectUpdateHandler2 Committing on IndexWriter.close()  ... SKIPPED (unnecessary).
+2024-11-25 15:31:54.934 INFO  (ShutdownMonitor) [c: s: r: x: t:] o.a.s.m.SolrMetricManager Closing metric reporters for registry=solr.node tag=null
+2024-11-25 15:31:54.945 INFO  (ShutdownMonitor) [c: s: r: x: t:] o.a.s.m.SolrMetricManager Closing metric reporters for registry=solr.jvm tag=null
+2024-11-25 15:31:54.950 INFO  (ShutdownMonitor) [c: s: r: x: t:] o.a.s.m.SolrMetricManager Closing metric reporters for registry=solr.jetty tag=null
+2024-11-25 15:31:54.958 INFO  (ShutdownMonitor) [c: s: r: x: t:] o.e.j.s.h.ContextHandler Stopped o.e.j.w.WebAppContext@7726e185{solr-jetty-context.xml,/solr,null,STOPPED}{/home/sergio/USI/Information Retrieval/IR_project/backend/solr-9.7.0/server/solr-webapp/webapp}
