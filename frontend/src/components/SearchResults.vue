@@ -123,11 +123,16 @@
     <!-- Pagination -->
     <footer class="flex justify-center mt-6 p-4 pb-8 border-gray-300">
       <Paginator
-          v-model:page="currentPage"
-          :rows="10"
-          :totalRecords="totalResults"
-          :pageLinkSize="5"
-          @pageChange="changePage"
+        :rows="resultsPerPage"
+        :totalRecords="this.totalResults"
+        :page="currentPage - 1"
+        @page="changePage"
+        :template="{
+          '640px': 'PrevPageLink CurrentPageReport NextPageLink',
+          '960px': 'FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink',
+          '1300px': 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
+          default: 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink'
+        }"
       />
     </footer>
   </div>
@@ -201,6 +206,7 @@ export default {
           salary: item.salary[0],
           description: item.description[0],
         }));
+
         this.suggestions = data[1].map((item) => ({
           href: item.href,
           name: item.name[0],
@@ -208,6 +214,7 @@ export default {
         }));
 
         this.isResultsEmpty = this.results.length === 0 && this.suggestions.length === 0;
+        this.totalResults = data[2];  // Assumiamo che il totale dei risultati venga dalla risposta API
 
         this.$router.push({ path: '/results', query: { query: this.localSearchQuery } });
       } catch (error) {
@@ -233,13 +240,7 @@ export default {
       this.fetchResults();
     },
     updateFilters() {
-      this.results = this.results.filter(
-          (item) =>
-              item.age >= this.ageRange[0] &&
-              item.age <= this.ageRange[1] &&
-              item.salary >= this.salaryRange[0] &&
-              item.salary <= this.salaryRange[1]
-      );
+      this.fetchResults();
     },
   },
   mounted() {

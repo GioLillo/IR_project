@@ -41,6 +41,6 @@ Questo file tiene traccia delle attività da completare per il progetto.
 ## Da fare
   - **Giorgia**: Filtering, Recommendation
   - **Cice**: No-results text, Slider, Results card
-  - **Sergio**: Divider, Paging, User relevance
+  - **Sergio**: Paging, User relevance
 
 ---
