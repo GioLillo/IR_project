@@ -29,13 +29,18 @@ Questo file tiene traccia delle attività da completare per il progetto.
 ---
 
 ## Note Aggiuntive 🗒️
-  - **Fix divider dynamic length**: sistermare divisore per quando si hanno pochi results
+  - **Fix divider dynamic length**: Sistermare divisore per quando si hanno pochi results
   - **Deadline**: 26/11
+  - **Paging**: Mettere il paging bene 
+  - **Deadline**: 27/11
   - **Results card**: Inserire URI e dividere age,salary da description
   - **Deadline**: 29/11
   - **No results brutto** :Sistemare il no-results text
   - **Deadline**: 29/11
 
 
-
+## Da fare
+ - **Giorgia**: Filtering,Reccomandation
+ - **Cice**: No-results text,Slider,Results card
+ - **Sergio**: Divider,Paging,User relevance
 ---
