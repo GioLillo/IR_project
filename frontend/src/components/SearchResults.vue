@@ -110,11 +110,16 @@
     <!-- Pagination -->
     <footer class="flex justify-center mt-6 p-4 pb-8 border-gray-300">
       <Paginator
-          v-model:page="currentPage"
-          :rows="10"
-          :totalRecords="totalResults"
-          :pageLinkSize="5"
-          @pageChange="changePage"
+        :rows="resultsPerPage"
+        :totalRecords="this.totalResults"
+        :page="currentPage - 1"
+        @page="changePage"
+        :template="{
+          '640px': 'PrevPageLink CurrentPageReport NextPageLink',
+          '960px': 'FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink',
+          '1300px': 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
+          default: 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink'
+        }"
       />
     </footer>
   </div>
@@ -187,16 +192,14 @@ export default {
           salary: item.salary[0],
           description: item.description[0],
         }));
-        console.log(data);
+
         this.suggestions = data[1].map((item) => ({
           href: item.href,
           name: item.name[0],
-          // age: item.age[0],
-          // salary: item.salary[0],
           description: item.description,
         }));
-        //this.totalResults = data[2];
-        this.$router.push({ path: '/results', query: { query: this.localSearchQuery } });
+
+        this.totalResults = data[2];  // Assumiamo che il totale dei risultati venga dalla risposta API
       } catch (error) {
         console.error("Errore nel recupero dei dati:", error);
       }
@@ -216,17 +219,11 @@ export default {
       });
     },
     changePage(event) {
-      this.currentPage = event.page+1; 
+      this.currentPage = event.page + 1;  // Pagina iniziale di Paginator è zero-indexed
       this.fetchResults();
     },
     updateFilters() {
-      this.results = this.results.filter(
-        (item) =>
-          item.age >= this.ageRange[0] &&
-          item.age <= this.ageRange[1] &&
-          item.salary >= this.salaryRange[0] &&
-          item.salary <= this.salaryRange[1]
-      );
+      this.fetchResults();
     },
   },
   mounted() {
@@ -234,23 +231,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-button {
-  transition: all 0.3s ease;
-}
-button:hover {
-  transform: scale(1.05);
-}
-
-.p-slider-range {
-  background-color: #7c3aed !important; 
-  border-radius: 4px;
-}
-
-.p-slider-handle {
-  background-color: #7c3aed !important;
-  border: 2px solid #7c3aed !important;
-}
-
-</style>
