@@ -10,9 +10,9 @@ Questo file tiene traccia delle attività da completare per il progetto.
 ---
 
 ## Simple features 🚀
-  - [❌] **Filtering**: Filtrare per range age e salary
+  - [✔️] **Filtering**: Filtrare per range age e salary
   - [✔️] **Results snippets**: Simile a google
-  - [❌] **Deadline**: 25/11
+  - [✔️] **Deadline**: 25/11
   - [❌] **Report**: Mid report
   - [❌] **Deadline**: 26/11
 
@@ -29,7 +29,7 @@ Questo file tiene traccia delle attività da completare per il progetto.
 ## Note Aggiuntive 🗒️
   - [✔️] **Fix divider dynamic length**: Sistemare divisore per quando si hanno pochi risultati
   - [✔️] **Deadline**: 26/11
-  - [✔️] **Paging**: Mettere il paging bene
+  - [❌] **Paging**: Paging fatto,da sistemare quando si filtra
   - [✔️] **Deadline**: 27/11
   - [❌] **Results card**: Inserire URI e dividere age, salary da description
   - [❌] **Deadline**: 29/11
@@ -41,6 +41,6 @@ Questo file tiene traccia delle attività da completare per il progetto.
 ## Da fare
   - **Giorgia**: Filtering, Recommendation
   - **Cice**: Results card(dislike e like)
-  - **Sergio**: User relevance
+  - **Sergio**: User relevance, Paging
 
 ---
