@@ -85,7 +85,9 @@
       </div>
 
       <!-- Divider -->
-      <div class="border-l border-gray-300"></div>
+      <div v-if="suggestions.length <= 1" class="h-[220px] border-l border-gray-300"></div>
+      <div v-if="suggestions.length == 2" class="h-[360px] border-l border-gray-300"></div>
+      <div v-if="suggestions.length >= 3" class="h-[520px] border-l border-gray-300"></div>
 
       <!-- Suggestions Section -->
       <aside class="w-1/3 pr-20">
