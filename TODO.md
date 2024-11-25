@@ -4,8 +4,7 @@ Questo file tiene traccia delle attività da completare per il progetto.
 
 ## Indice
 - [Simple features](#simple-features)
-- [Attività In Corso](#attività-in-corso)
-- [Attività Future](#attività-future)
+- [Complex features](#attività-in-corso)
 - [Note Aggiuntive](#note-aggiuntive)
 
 ---
