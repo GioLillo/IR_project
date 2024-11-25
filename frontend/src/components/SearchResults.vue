@@ -127,7 +127,7 @@
     </main>
 
     <!-- Pagination -->
-    <footer class="flex justify-center mt-6 p-4 pb-8 border-gray-300">
+    <footer v-if="!isResultsEmpty" class="flex justify-center mt-6 p-4 pb-8 border-gray-300">
       <Paginator
         :rows="resultsPerPage"
         :totalRecords="this.totalResults"
@@ -172,7 +172,7 @@ export default {
       suggestions: [],
       ageRange: [10, 100],
       salaryRange: [0, 40],
-      isResultsEmpty: false,
+      isResultsEmpty: true,
       isLoading: false,
     };
   },
@@ -233,6 +233,12 @@ export default {
               name: item.name[0],
               description: item.description,
           }));
+          this.totalResults = data[2];
+          if(this.totalResults === 0){
+            this.isResultsEmpty= true;
+          }else{
+            this.isResultsEmpty= false;
+          }
       } catch (error) {
           console.error("Errore nel recupero dei dati:", error);
       } finally {
@@ -248,6 +254,7 @@ export default {
     clearSearch() {
       this.localSearchQuery = "";
       this.totalResults = 0;
+      this.isResultsEmpty= true;
       this.currentPage = 1;
       this.$nextTick(() => {
         this.$refs.searchInput.focus();
