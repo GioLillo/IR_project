@@ -60,8 +60,14 @@
     <!-- Divider -->
     <div class="w-full border-b border-gray-300 mb-4"></div>
 
+    <div v-if="isLoading" class="flex justify-center items-center flex-grow">
+      <i class="pi pi-spin pi-spinner font-extrabold text-violet-500"></i> 
+      <p class="ml-2 text-xl text-gray-700">Loading...</p>
+    </div>
+
     <!-- Search Results Section -->
-    <main class="flex space-x-4 pl-20 flex-grow">
+    <main v-else class="flex space-x-4 pl-20 flex-grow">
+
       <!-- Search Results -->
       <div class="flex-1">
         <h2 class="text-lg font-semibold text-gray-800 mb-3">
@@ -148,20 +154,12 @@ export default {
       suggestions: [],
       ageRange: [10, 100],
       salaryRange: [0, 40],
+      isLoading: false,
     };
   },
   computed: {
     totalPages() {
       return Math.ceil(this.totalResults / this.resultsPerPage);
-    },
-    filteredResults() {
-      return this.results.filter(
-        (item) =>
-          item.age >= this.ageRange[0] &&
-          item.age <= this.ageRange[1] &&
-          item.salary >= this.salaryRange[0] &&
-          item.salary <= this.salaryRange[1]
-      );
     },
   },
   watch: {
@@ -174,31 +172,52 @@ export default {
   },
   methods: {
     async fetchResults() {
+      this.isLoading = true;
       try {
-        const url = `http://localhost:3000/api/results?query=${this.localSearchQuery}&page=${this.currentPage}&ageRange=${JSON.stringify(this.ageRange)}&salaryRange=${JSON.stringify(this.salaryRange)}`;
+          const url = `http://localhost:3000/api/results?query=${this.localSearchQuery}&page=${this.currentPage}&ageRange=${JSON.stringify(this.ageRange)}&salaryRange=${JSON.stringify(this.salaryRange)}`;
 
-        const response = await axios.get(url);
-        const data = response.data;
+          const response = await axios.get(url);
+          const data = response.data;
 
-        this.results = data[0].map((item) => ({
-          href: item.href[0],
-          name: item.name[0],
-          age: item.age[0],
-          salary: item.salary[0],
-          description: item.description[0],
-        }));
-        console.log(data);
-        this.suggestions = data[1].map((item) => ({
-          href: item.href,
-          name: item.name[0],
-          // age: item.age[0],
-          // salary: item.salary[0],
-          description: item.description,
-        }));
-        //this.totalResults = data[2];
-        this.$router.push({ path: '/results', query: { query: this.localSearchQuery } });
+          this.results = data[0].map((item) => ({
+              href: item.href[0],
+              name: item.name[0],
+              age: parseInt(item.age[0], 10),
+              salary: typeof item.salary[0] === 'string'
+              ? parseFloat(item.salary[0].replace(/[^0-9.]/g, ''))
+              : item.salary[0],
+              description: item.description[0],
+          }));
+
+          this.results = this.results.filter((item) => {
+            const age = parseInt(item.age, 10); 
+            let salary;
+
+            if (typeof item.salary === 'string') {
+              salary = parseFloat(item.salary.replace(/[^0-9.]/g, ''));
+            } else if (typeof item.salary === 'number') {
+              salary = item.salary;
+            } else {
+              return false;
+            }
+
+            return (
+              age >= this.ageRange[0] &&
+              age <= this.ageRange[1] &&
+              salary >= this.salaryRange[0] &&
+              salary <= this.salaryRange[1]
+            );
+          });
+          
+          this.suggestions = data[1].map((item) => ({
+              href: item.href,
+              name: item.name[0],
+              description: item.description,
+          }));
       } catch (error) {
-        console.error("Errore nel recupero dei dati:", error);
+          console.error("Errore nel recupero dei dati:", error);
+      } finally {
+          this.isLoading = false;
       }
     },
     performSearch() {
@@ -220,13 +239,7 @@ export default {
       this.fetchResults();
     },
     updateFilters() {
-      this.results = this.results.filter(
-        (item) =>
-          item.age >= this.ageRange[0] &&
-          item.age <= this.ageRange[1] &&
-          item.salary >= this.salaryRange[0] &&
-          item.salary <= this.salaryRange[1]
-      );
+      this.fetchResults();  
     },
   },
   mounted() {
@@ -242,15 +255,4 @@ button {
 button:hover {
   transform: scale(1.05);
 }
-
-.p-slider-range {
-  background-color: #7c3aed !important; 
-  border-radius: 4px;
-}
-
-.p-slider-handle {
-  background-color: #7c3aed !important;
-  border: 2px solid #7c3aed !important;
-}
-
 </style>

@@ -93,10 +93,10 @@ app.get("/api/results", async (req, res) => {
     const salaryRange = req.query.salaryRange ? JSON.parse(req.query.salaryRange) : [0, 40];
 
     const filters = [
-        `age:[${ageRange[0]} TO ${ageRange[1]}]`,
+        `age:[${ageRange[0]} TO ${ageRange[1]}]`, 
         `salary:[${salaryRange[0]} TO ${salaryRange[1]}]`
     ];
-
+    
 
     const solrResults = await queryToSolr(query,req.query.page);
     console.log(solrResults);
@@ -111,10 +111,14 @@ app.get("/api/results", async (req, res) => {
     const solrUrl = `${SOLR_BASE_URL}/select`;
     const params = new URLSearchParams({
         q: query,
-        fq: filters,
         wt: 'json',
         rows: 3,
     });
+
+    filters.forEach(filter => params.append('fq', filter)); 
+
+    params.append('nocache', Math.random());
+
     const response = await axios.get(solrUrl, { params });
     const sugg=response.data.response.docs;
     sugg.forEach(e => {
