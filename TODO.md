@@ -10,9 +10,9 @@ Questo file tiene traccia delle attività da completare per il progetto.
 ---
 
 ## Simple features 🚀
-  - [❌] **Filtering**: Filtrare per range age e salary
+  - [✔️] **Filtering**: Filtrare per range age e salary
   - [✔️] **Results snippets**: Simile a google
-  - [❌] **Deadline**: 25/11
+  - [✔️] **Deadline**: 25/11
   - [❌] **Report**: Mid report
   - [❌] **Deadline**: 26/11
 
@@ -39,8 +39,8 @@ Questo file tiene traccia delle attività da completare per il progetto.
 ---
 
 ## Da fare
-  - **Giorgia**: Filtering, Recommendation
+  - **Giorgia**: Recommendation
   - **Cice**: Results card(dislike e like)
-  - **Sergio**: User relevance
+  - **Sergio**: Report,User relevance
 
 ---
