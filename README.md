@@ -7,24 +7,21 @@
 3. Giulia Ambiveri
 
 ### Sites:
-1. https://it.yoopies.ch/ricerca-babysitting/results?c=lugano
-2. https://babysitting24.ch/it/providers/search?q[place]=Lugano
-3. https://en.babysits.ch/babysitter/lugano/
+1. https://babysitting24.ch/it/providers/search?q[place]=Lugano
+2. https://en.babysits.ch/babysitter/lugano/
 
 ### City: 
 Lugano 
 
 ### Simple features:
 - Results Snippets
+- Filtering
 
 ### Complex features:
-- Automatic  Recommendation
-- User  Relevance  Feedback
-- Results  clustering
+- Automatic Recommendation
+- User Relevance Feedback
 
 ### Color favicon (useful for chosing palette):
-rgb(103, 196, 198) --> celeste
-
 rgb(129, 98, 194) --> viola
 
 
