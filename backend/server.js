@@ -97,15 +97,14 @@ app.get("/api/results", async (req, res) => {
         `salary:[${salaryRange[0]} TO ${salaryRange[1]}]`
     ];
 
-    /* if(ageRange[0]>15||ageRange[1]<70){
+    if(ageRange[0]>15||ageRange[1]<70){
         query+= " AND ("+filters[0]+")";
     }
     if(salaryRange[0]>10||salaryRange[1]<40){
         query+=" AND ("+filters[1]+")";
-    } */
-    //const solrResults = await queryToSolr(query,req.query.page,filters[0],filters);
-
+    } 
     const solrResults = await queryToSolr(query,req.query.page);
+
     const numfound=solrResults.data.response.numFound;
     const ress=solrResults.data;
     ress.response.docs.forEach(e => {
@@ -119,10 +118,7 @@ app.get("/api/results", async (req, res) => {
         wt: 'json',
         rows: 3,
     });
-    filters.forEach(filter => params.append('fq', filter)); 
-
-    params.append('nocache', Math.random());
-
+    
     const response = await axios.get(solrUrl, { params });
     const sugg=response.data.response.docs;
     sugg.forEach(e => {

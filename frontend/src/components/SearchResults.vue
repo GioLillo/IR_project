@@ -236,6 +236,7 @@ export default {
               name: item.name[0],
               description: item.description,
           }));
+          this.totalResults = data[2];
       } catch (error) {
           console.error("Errore nel recupero dei dati:", error);
       } finally {
