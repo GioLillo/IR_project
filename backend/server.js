@@ -10,6 +10,7 @@ app.use(express.json());
 
 const SOLR_BASE_URL = 'http://localhost:8983/solr/babysitter_core';
 const babysitters = require("./data_retrieved.json");
+const e = require('cors');
 
 const execAsync = promisify(exec);
 
@@ -86,9 +87,13 @@ async function main() {
 main();
 
 app.get("/api/results", async (req, res) => {
-    let query = "(name:" + req.query.query + "* OR description:*" + req.query.query + "*)";
-    //else query = "(name:" + req.query.query + "* or description:*" + req.query.query + "*) and (age or salary)";
-
+    let query = "(";
+    const tokens=req.query.query.split(" ");
+    tokens.forEach(e => {
+        query+="(name:" + e + "* OR description:*" + e + "* OR age:*" + e + "* OR salary:*" + e + "*)";
+        if(e!=tokens[tokens.length-1]) query+=" OR ";
+    });
+    query+=")";
     const ageRange = req.query.ageRange ? JSON.parse(req.query.ageRange) : [15, 70];
     const salaryRange = req.query.salaryRange ? JSON.parse(req.query.salaryRange) : [10, 40];
 

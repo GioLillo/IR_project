@@ -33,8 +33,8 @@ Questo file tiene traccia delle attività da completare per il progetto.
   - [❌] **Deadline**: 27/11
   - [❌] **Highlight**: Evidenzia tutte le parole
   - [❌] **Deadline**: 27/11
-  - [❌] **Tokenization query**: dividere parole nella ricerca, includere anche params age e salary nella ricerca
-  - [❌] **Deadline**: 27/11
+  - [✔️] **Tokenization query**: dividere parole nella ricerca, includere anche params age e salary nella ricerca
+  - [✔️] **Deadline**: 27/11
   - [❌] **Results card**: Inserire URI e dividere age, salary da description (dislike e like)
   - [❌] **Deadline**: 29/11
   - [✔️] **No results brutto**: Sistemare il no-results text
