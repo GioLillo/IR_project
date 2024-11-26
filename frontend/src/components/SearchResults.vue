@@ -34,11 +34,12 @@
                 v-model="ageRange"
                 range
                 class="w-40"
-                :min="10"
-                :max="100"
+                :min="minAge || 15"
+                :max="maxAge || 70"
                 @change="updateFilters"
+                v-if="minAge !== null && maxAge !== null"
             />
-            <span class="ml-4 text-gray-600">{{ ageRange[0] }} - {{ ageRange[1] }}</span>
+            <span class="ml-4 text-gray-600" >{{ ageRange[0] }} - {{ ageRange[1] }}</span>
           </div>
           <!-- Salary Slider -->
           <div class="flex items-center">
@@ -47,11 +48,12 @@
                 v-model="salaryRange"
                 range
                 class="w-40"
-                :min="0"
-                :max="40"
+                :min="minSalary || 10"
+                :max="maxSalary || 40"
                 @change="updateFilters"
+                v-if="minSalary !== null && maxSalary !== null"
             />
-            <span class="ml-4 text-gray-600">{{ salaryRange[0] }} - {{ salaryRange[1] }}</span>
+            <span class="ml-4 text-gray-600">{{ salaryRange[0] }} - {{ salaryRange[1] }}</span> 
           </div>
         </div>
       </div>
@@ -170,8 +172,12 @@ export default {
       currentPage: 1,
       resultsPerPage: 10,
       suggestions: [],
-      ageRange: [10, 100],
-      salaryRange: [0, 40],
+      minAge:null, 
+      maxAge: null, 
+      minSalary: null, 
+      maxSalary: null, 
+      ageRange: [15,70], 
+      salaryRange: [10,40],
       isResultsEmpty: false,
       isLoading: false,
     };
@@ -208,23 +214,20 @@ export default {
               description: item.description[0],
           }));
 
+          const ages = this.results.map((item) => item.age);
+          const salaries = this.results.map((item) => item.salary);
+
+          this.minAge = Math.min(...ages);
+          this.maxAge = Math.max(...ages);
+          this.minSalary = Math.min(...salaries);
+          this.maxSalary = Math.max(...salaries);
+
           this.results = this.results.filter((item) => {
-            const age = parseInt(item.age, 10); 
-            let salary;
-
-            if (typeof item.salary === 'string') {
-              salary = parseFloat(item.salary.replace(/[^0-9.]/g, ''));
-            } else if (typeof item.salary === 'number') {
-              salary = item.salary;
-            } else {
-              return false;
-            }
-
             return (
-              age >= this.ageRange[0] &&
-              age <= this.ageRange[1] &&
-              salary >= this.salaryRange[0] &&
-              salary <= this.salaryRange[1]
+              item.age >= this.ageRange[0] &&
+              item.age <= this.ageRange[1] &&
+              item.salary >= this.salaryRange[0] &&
+              item.salary <= this.salaryRange[1]
             );
           });
           

@@ -89,20 +89,23 @@ app.get("/api/results", async (req, res) => {
     let query = "(name:" + req.query.query + "* OR description:*" + req.query.query + "*)";
     //else query = "(name:" + req.query.query + "* or description:*" + req.query.query + "*) and (age or salary)";
 
-    const ageRange = req.query.ageRange ? JSON.parse(req.query.ageRange) : [10, 100];
-    const salaryRange = req.query.salaryRange ? JSON.parse(req.query.salaryRange) : [0, 40];
+    const ageRange = req.query.ageRange ? JSON.parse(req.query.ageRange) : [15, 70];
+    const salaryRange = req.query.salaryRange ? JSON.parse(req.query.salaryRange) : [10, 40];
 
     const filters = [
         `age:[${ageRange[0]} TO ${ageRange[1]}]`, 
         `salary:[${salaryRange[0]} TO ${salaryRange[1]}]`
     ];
-    if(ageRange[0]>15||ageRange[1]<70){
+
+    /* if(ageRange[0]>15||ageRange[1]<70){
         query+= " AND ("+filters[0]+")";
     }
     if(salaryRange[0]>10||salaryRange[1]<40){
         query+=" AND ("+filters[1]+")";
-    }
-    const solrResults = await queryToSolr(query,req.query.page,filters[0],filters);
+    } */
+    //const solrResults = await queryToSolr(query,req.query.page,filters[0],filters);
+
+    const solrResults = await queryToSolr(query,req.query.page);
     const numfound=solrResults.data.response.numFound;
     const ress=solrResults.data;
     ress.response.docs.forEach(e => {
@@ -110,13 +113,16 @@ app.get("/api/results", async (req, res) => {
         e.description[0] = toAssign;  
     });
 
-
     const solrUrl = `${SOLR_BASE_URL}/select`;
     const params = new URLSearchParams({
         q: query,
         wt: 'json',
         rows: 3,
     });
+    filters.forEach(filter => params.append('fq', filter)); 
+
+    params.append('nocache', Math.random());
+
     const response = await axios.get(solrUrl, { params });
     const sugg=response.data.response.docs;
     sugg.forEach(e => {
