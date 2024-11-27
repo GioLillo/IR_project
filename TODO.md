@@ -14,7 +14,7 @@ Questo file tiene traccia delle attività da completare per il progetto.
   - [✔️] **Results snippets**: Simile a google
   - [✔️] **Deadline**: 25/11
   - [❌] **Report**: Mid report
-  - [❌] **Deadline**: 26/11
+  - [❌] **Deadline**: 27/11
 
 ---
 
@@ -45,6 +45,6 @@ Questo file tiene traccia delle attività da completare per il progetto.
 ## Da fare
   - **Giorgia**: Recommendation~, filtering, Paging
   - **Cice**: Results card, Highlight 
-  - **Sergio**: Report,User relevance~, Tokenization
+  - **Sergio**: Report,User relevance~
 
 ---
