@@ -56,7 +56,7 @@ async function queryToSolr(query, start) {
             q: query,
             wt: 'json',
             rows: 10,
-            start: ((start-1)*10),
+            start: ((start-1)*10), 
         });
         const response = await axios.get(solrUrl, { params });
         return response;
@@ -109,7 +109,6 @@ app.get("/api/results", async (req, res) => {
         query+=" AND ("+filters[1]+")";
     } 
     const solrResults = await queryToSolr(query,req.query.page);
-
     const numfound=solrResults.data.response.numFound;
     const ress=solrResults.data;
     ress.response.docs.forEach(e => {

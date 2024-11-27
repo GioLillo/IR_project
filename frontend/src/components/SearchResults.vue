@@ -34,10 +34,9 @@
                 v-model="ageRange"
                 range
                 class="w-40"
-                :min="minAge || 15"
-                :max="maxAge || 70"
+                :min="minAge"
+                :max="maxAge"
                 @change="updateFilters"
-                v-if="minAge !== null && maxAge !== null"
             />
             <span class="ml-4 text-gray-600" >{{ ageRange[0] }} - {{ ageRange[1] }}</span>
           </div>
@@ -48,10 +47,9 @@
                 v-model="salaryRange"
                 range
                 class="w-40"
-                :min="minSalary || 10"
-                :max="maxSalary || 40"
+                :min="minSalary"
+                :max="maxSalary"
                 @change="updateFilters"
-                v-if="minSalary !== null && maxSalary !== null"
             />
             <span class="ml-4 text-gray-600">{{ salaryRange[0] }} - {{ salaryRange[1] }}</span> 
           </div>
@@ -172,12 +170,13 @@ export default {
       currentPage: 1,
       resultsPerPage: 10,
       suggestions: [],
-      minAge:null, 
-      maxAge: null, 
-      minSalary: null, 
-      maxSalary: null, 
+      minAge:15, 
+      maxAge: 70, 
+      minSalary: 10, 
+      maxSalary: 40, 
       ageRange: [15,70], 
       salaryRange: [10,40],
+      initialRange: true,
       isResultsEmpty: false,
       isLoading: false,
     };
@@ -214,23 +213,27 @@ export default {
               description: item.description[0],
           }));
 
-          const ages = this.results.map((item) => item.age);
-          const salaries = this.results.map((item) => item.salary);
+          if (this.results.length > 0) {
+            const ages = this.results.map((item) => item.age);
+            const salaries = this.results.map((item) => item.salary);
 
-          this.minAge = Math.min(...ages);
-          this.maxAge = Math.max(...ages);
-          this.minSalary = Math.min(...salaries);
-          this.maxSalary = Math.max(...salaries);
+            if (this.minAge === 15 && this.maxAge === 70) {
+              this.minAge = Math.min(...ages);
+              this.maxAge = Math.max(...ages);
+            }
 
-          this.results = this.results.filter((item) => {
-            return (
-              item.age >= this.ageRange[0] &&
-              item.age <= this.ageRange[1] &&
-              item.salary >= this.salaryRange[0] &&
-              item.salary <= this.salaryRange[1]
-            );
-          });
-          
+            if (this.minSalary === 10 && this.maxSalary === 40) {
+              this.minSalary = Math.min(...salaries);
+              this.maxSalary = Math.max(...salaries);
+            }
+
+            if (this.initialRange) {
+              this.ageRange = [this.minAge, this.maxAge];
+              this.salaryRange = [this.minSalary, this.maxSalary];
+              this.initialRange = false; 
+            }
+          }
+
           this.suggestions = data[1].map((item) => ({
               href: item.href,
               name: item.name[0],
