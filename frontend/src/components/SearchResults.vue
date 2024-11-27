@@ -36,6 +36,7 @@
                 class="w-40"
                 :min="minAge"
                 :max="maxAge"
+                :allow-cross="false"
                 @change="updateFilters"
             />
             <span class="ml-4 text-gray-600" >{{ ageRange[0] }} - {{ ageRange[1] }}</span>
@@ -49,6 +50,7 @@
                 class="w-40"
                 :min="minSalary"
                 :max="maxSalary"
+                :allow-cross="false"
                 @change="updateFilters"
             />
             <span class="ml-4 text-gray-600">{{ salaryRange[0] }} - {{ salaryRange[1] }}</span> 
@@ -265,7 +267,16 @@ export default {
       this.fetchResults();
     },
     updateFilters() {
+      this.validateSliders();
       this.fetchResults();  
+    },
+    validateSliders() {
+      if (this.ageRange[0] > this.ageRange[1]) {
+        this.ageRange = [this.ageRange[1], this.ageRange[0]];
+      }
+      if (this.salaryRange[0] > this.salaryRange[1]) {
+        this.salaryRange = [this.salaryRange[1], this.salaryRange[0]];
+      }
     },
   },
   mounted() {
