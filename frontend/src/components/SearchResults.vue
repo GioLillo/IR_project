@@ -111,7 +111,7 @@
       <div v-if="suggestions.length >= 3 && !isResultsEmpty" class="h-[520px] border-l border-gray-300"></div>
 
       <!-- Suggestions Section -->
-      <aside class="w-1/3 pr-20" v-if="!isResultsEmpty">
+      <aside class="w-1/3 pr-20" v-if="suggestions.length > 0 && !isResultsEmpty">
         <h2 class="text-lg font-semibold text-gray-800 mb-3">Suggested</h2>
         <ul class="space-y-4">
           <li
@@ -172,10 +172,12 @@ export default {
       currentPage: 1,
       resultsPerPage: 10,
       suggestions: [],
-      minAge:15, 
-      maxAge: 70, 
-      minSalary: 10, 
-      maxSalary: 40, 
+      suggQuery: "",
+      suggestionParams: [],
+      minAge:0, 
+      maxAge: 100, 
+      minSalary: 0, 
+      maxSalary: 100, 
       ageRange: [15,70], 
       salaryRange: [10,40],
       initialRange: true,
@@ -204,7 +206,7 @@ export default {
 
           const response = await axios.get(url);
           const data = response.data;
-
+          
           this.results = data[0].map((item) => ({
               href: item.href[0],
               name: item.name[0],
@@ -219,12 +221,12 @@ export default {
             const ages = this.results.map((item) => item.age);
             const salaries = this.results.map((item) => item.salary);
 
-            if (this.minAge === 15 && this.maxAge === 70) {
+            if (this.minAge === 0 && this.maxAge === 100) {
               this.minAge = Math.min(...ages);
               this.maxAge = Math.max(...ages);
             }
 
-            if (this.minSalary === 10 && this.maxSalary === 40) {
+            if (this.minSalary === 0 && this.maxSalary === 100) {
               this.minSalary = Math.min(...salaries);
               this.maxSalary = Math.max(...salaries);
             }
@@ -234,16 +236,19 @@ export default {
               this.salaryRange = [this.minSalary, this.maxSalary];
               this.initialRange = false; 
             }
+
           }
 
           this.suggestions = data[1].map((item) => ({
-              href: item.href,
-              name: item.name[0],
-              description: item.description,
+            href: item.href[0],
+            name: item.name[0],
+            description: item.description[0],
           }));
+
           this.totalResults = data[2];
+          this.isResultsEmpty = this.results.length === 0;
       } catch (error) {
-          console.error("Errore nel recupero dei dati:", error);
+          console.error("Error in data recovery:", error);
       } finally {
           this.isLoading = false;
       }
@@ -251,6 +256,13 @@ export default {
     performSearch() {
       this.currentPage = 1;
       this.displayQuery = this.localSearchQuery;
+      this.minAge = 0;
+      this.maxAge = 100;
+      this.minSalary = 0;
+      this.maxSalary = 100;
+      this.ageRange = [15, 70];
+      this.salaryRange = [10, 40];
+      this.initialRange = true;
       this.fetchResults();
       this.$refs.searchInput.blur();
     },

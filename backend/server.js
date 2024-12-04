@@ -94,6 +94,7 @@ app.get("/api/results", async (req, res) => {
         if(e!=tokens[tokens.length-1]) query+=" OR ";
     });
     query+=")";
+
     const ageRange = req.query.ageRange ? JSON.parse(req.query.ageRange) : [15, 70];
     const salaryRange = req.query.salaryRange ? JSON.parse(req.query.salaryRange) : [10, 40];
 
@@ -108,6 +109,7 @@ app.get("/api/results", async (req, res) => {
     if(salaryRange[0]>10||salaryRange[1]<40){
         query+=" AND ("+filters[1]+")";
     } 
+    
     const solrResults = await queryToSolr(query,req.query.page);
     const numfound=solrResults.data.response.numFound;
     const ress=solrResults.data;
@@ -116,22 +118,58 @@ app.get("/api/results", async (req, res) => {
         e.description[0] = toAssign;  
     });
 
+    console.log(req.query);
+
+    const results = ress.response.docs;
+    let suggestionParams = null;
+
+    if (results.length > 0) {
+        const ages = results.map((item) => parseInt(item.age[0], 10));
+        const salaries = results.map((item) =>
+            typeof item.salary[0] === "string"
+                ? parseFloat(item.salary[0].replace(/[^0-9.]/g, ""))
+                : item.salary[0]
+        );
+
+        const avgAge = Math.round(ages.reduce((sum, a) => sum + a, 0) / ages.length);
+        const avgSalary = Math.round(salaries.reduce((sum, s) => sum + s, 0) / salaries.length);
+
+        suggestionParams = {
+            ageRange: [Math.max(avgAge - 5, Math.min(...ages)), Math.min(avgAge + 5, Math.max(...ages))],
+            salaryRange: [Math.max(avgSalary - 5, Math.min(...salaries)), Math.min(avgSalary + 5, Math.max(...salaries))],
+        };
+    }
+
+    let suggQuery = "*:*"; 
+    if (suggestionParams) {
+        suggQuery = `age:[${suggestionParams.ageRange[0]} TO ${suggestionParams.ageRange[1]}] AND salary:[${suggestionParams.salaryRange[0]} TO ${suggestionParams.salaryRange[1]}]`;
+    }
+
+    console.log(suggQuery);
+
     const solrUrl = `${SOLR_BASE_URL}/select`;
     const params = new URLSearchParams({
-        q: query,
+        q: suggQuery,
         wt: 'json',
         rows: 3,
     });
     
     const response = await axios.get(solrUrl, { params });
-    const sugg=response.data.response.docs;
+    let sugg=response.data.response.docs;
     sugg.forEach(e => {
         var toAssign = e.description[0].replace(new RegExp(req.query.query, 'gi'), "<b>$&</b>");
         e.description[0] = toAssign;  
-    });
+    }); 
+
+    sugg = sugg.filter(
+        (suggestion) => 
+            !results.some(
+                (result) => result.href === suggestion.href
+            )
+    );
 
     if (solrResults) {
-        res.json([ress.response.docs,sugg,numfound]);
+        res.json([ress.response.docs, sugg, numfound]);
     } else {
         res.status(500).json({ error: 'Errore nella ricerca Solr' });
     }
