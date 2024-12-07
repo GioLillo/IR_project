@@ -5,7 +5,7 @@
       <div class="flex items-center">
         <div class="flex w-full max-w-2xl border rounded-full shadow-md bg-white overflow-hidden focus-within:ring-2 focus-within:ring-violet-500">
           <!-- Search Icon -->
-          <div class="flex items-center justify-center px-4">
+          <div class="flex items-center justify-center px-4 cursor-pointer" @click="performSearch">
             <i class="pi pi-search text-lg font-semibold text-violet-500"></i>
           </div>
           <!-- Input Field -->
@@ -298,4 +298,7 @@ export default {
 </script>
 
 <style scoped>
+.cursor-pointer {
+  cursor: pointer;
+}
 </style>
