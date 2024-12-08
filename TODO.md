@@ -31,8 +31,8 @@ Questo file tiene traccia delle attività da completare per il progetto.
   - [✔️] **Deadline**: 26/11
   - [✔️] **Paging**: Paging fatto,da sistemare quando si filtra
   - [✔️] **Deadline**: 27/11
-  - [❌] **Highlight**: Evidenzia tutte le parole
-  - [❌] **Deadline**: 5/12
+  - [✔️] **Highlight**: Evidenzia tutte le parole
+  - [✔️] **Deadline**: 5/12
   - [✔️] **Tokenization query**: dividere parole nella ricerca, includere anche params age e salary nella ricerca
   - [✔️] **Deadline**: 27/11
   - [❌] **Results card**: Inserire URI e dividere age, salary da description (dislike e like)
@@ -44,7 +44,7 @@ Questo file tiene traccia delle attività da completare per il progetto.
 
 ## Da fare
   - **Giorgia**: Recommendation~,
-  - **Cice**: Results card, Highlight, colori paging 
+  - **Cice**: Results card, colori paging 
   - **Sergio**: User relevance~
 
 ---
