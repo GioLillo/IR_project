@@ -13,8 +13,8 @@ Questo file tiene traccia delle attività da completare per il progetto.
   - [✔️] **Filtering**: Filtrare per range age e salary
   - [✔️] **Results snippets**: Simile a google
   - [✔️] **Deadline**: 25/11
-  - [❌] **Report**: Mid report
-  - [❌] **Deadline**: 27/11
+  - [✔️] **Report**: Mid report
+  - [✔️] **Deadline**: 27/11
 
 ---
 
@@ -45,6 +45,6 @@ Questo file tiene traccia delle attività da completare per il progetto.
 ## Da fare
   - **Giorgia**: Recommendation~,
   - **Cice**: Results card, Highlight, colori paging 
-  - **Sergio**: Report,User relevance~
+  - **Sergio**: User relevance~
 
 ---
