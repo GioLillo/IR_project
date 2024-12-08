@@ -104,6 +104,7 @@ app.get("/api/results", async (req, res) => {
     ];
 
     if(ageRange[0]>15||ageRange[1]<70){
+
         query+= " AND ("+filters[0]+")";
     }
     if(salaryRange[0]>10||salaryRange[1]<40){
@@ -113,12 +114,15 @@ app.get("/api/results", async (req, res) => {
     const solrResults = await queryToSolr(query,req.query.page);
     const numfound=solrResults.data.response.numFound;
     const ress=solrResults.data;
+    function highlightWordContainingSubstring(text, substring) {
+        const regex = new RegExp(`\\b\\w*${substring}\\w*\\b`, 'gi');
+        return text.replace(regex, (match) => `<b>${match}</b>`);
+    }
     ress.response.docs.forEach(e => {
-        var toAssign = e.description[0].replace(new RegExp(req.query.query, 'gi'), "<b>$&</b>");
-        e.description[0] = toAssign;  
+        e.description[0] = highlightWordContainingSubstring(e.description[0], req.query.query);
     });
+    
 
-    console.log(req.query);
 
     const results = ress.response.docs;
     let suggestionParams = null;
@@ -145,7 +149,6 @@ app.get("/api/results", async (req, res) => {
         suggQuery = `age:[${suggestionParams.ageRange[0]} TO ${suggestionParams.ageRange[1]}] AND salary:[${suggestionParams.salaryRange[0]} TO ${suggestionParams.salaryRange[1]}]`;
     }
 
-    console.log(suggQuery);
 
     const solrUrl = `${SOLR_BASE_URL}/select`;
     const params = new URLSearchParams({
@@ -157,8 +160,7 @@ app.get("/api/results", async (req, res) => {
     const response = await axios.get(solrUrl, { params });
     let sugg=response.data.response.docs;
     sugg.forEach(e => {
-        var toAssign = e.description[0].replace(new RegExp(req.query.query, 'gi'), "<b>$&</b>");
-        e.description[0] = toAssign;  
+        e.description[0] = highlightWordContainingSubstring(e.description[0], req.query.query);
     }); 
 
     sugg = sugg.filter(
